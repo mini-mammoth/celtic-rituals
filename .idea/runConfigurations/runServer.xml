@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="runServer" type="Application" factoryName="Application" singleton="true">
     <envs>
-      <env name="MOD_CLASSES" value="mymod%%C:\Users\Paul\source\github.com\reicheltp\my-mod\build\resources\main;mymod%%C:\Users\Paul\source\github.com\reicheltp\my-mod\build\classes\java\main" />
+      <env name="MOD_CLASSES" value="mymod%%C:\Users\Paul\source\github.com\reicheltp\my-mod\build\resources\main;mymod%%C:\Users\Paul\source\github.com\reicheltp\my-mod\build\classes\kotlin\main" />
       <env name="MCP_MAPPINGS" value="stable_53-1.14.2" />
       <env name="MCP_VERSION" value="20190829.143755" />
       <env name="FORGE_VERSION" value="28.1.8" />
@@ -12,7 +12,7 @@
     <option name="MAIN_CLASS_NAME" value="net.minecraftforge.userdev.LaunchTesting" />
     <module name="my-mod.main" />
     <option name="VM_PARAMETERS" value="-Dforge.logging.console.level=debug -Dforge.logging.markers=SCAN,REGISTRIES,REGISTRYDUMP" />
-    <option name="WORKING_DIRECTORY" value="C:\Users\Paul\source\github.com\reicheltp\my-mod\run" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run" />
     <method v="2">
       <option name="Make" enabled="true" />
       <option name="Gradle.BeforeRunTask" enabled="true" tasks=":prepareRunServer" externalProjectPath="$PROJECT_DIR$" />
