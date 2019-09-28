@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OB",
+    "SO"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bone"
+    },
+    "O": {
+      "item": "minecraft:string"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "celtic_rituals:knife"
+  }
+}
