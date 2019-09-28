@@ -5,10 +5,13 @@ import com.reicheltp.celtic_rituals.utils.Grow
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.ChickenEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
-import net.minecraft.util.*
+import net.minecraft.item.ItemTier
+import net.minecraft.item.SwordItem
+import net.minecraft.util.DamageSource
+import net.minecraft.util.Hand
+import net.minecraft.util.ResourceLocation
 import org.apache.logging.log4j.LogManager
 
 /**
@@ -16,9 +19,8 @@ import org.apache.logging.log4j.LogManager
  *
  * Right-click a mob to sacrifice it.
  */
-class Knife : Item(Properties()
-        .maxStackSize(1)
-        .maxDamage(1)
+class Knife : SwordItem(ItemTier.WOOD, 1, 1f, Properties()
+        .setNoRepair()
         .group(ItemGroup.MISC)) {
     companion object {
         private val LOGGER = LogManager.getLogger()
