@@ -1,6 +1,6 @@
 package com.reicheltp.mymod.items
 
-import com.reicheltp.mymod.MyMod
+import com.reicheltp.mymod.MOD_ID
 import com.reicheltp.mymod.utils.Grow
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.ChickenEntity
@@ -26,12 +26,10 @@ class Knife : Item(Properties()
     }
 
     init {
-        registryName = ResourceLocation(MyMod.MOD_ID, "knife")
+        registryName = ResourceLocation(MOD_ID, "knife")
     }
 
     override fun itemInteractionForEntity(stack: ItemStack, playerIn: PlayerEntity, target: LivingEntity, hand: Hand): Boolean {
-        LOGGER.info("INTERACTING with {} {}", target, hand)
-
         val validTarget = hand == Hand.MAIN_HAND && target is ChickenEntity
 
         if (validTarget) {
@@ -42,16 +40,5 @@ class Knife : Item(Properties()
         }
 
         return super.itemInteractionForEntity(stack, playerIn, target, hand)
-    }
-
-    override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
-        if (handIn != Hand.MAIN_HAND) {
-            return super.onItemRightClick(worldIn, playerIn, handIn)
-        }
-
-        LOGGER.info("RIGHT CLICK WITH with {}", handIn)
-
-
-        return ActionResult(ActionResultType.PASS, playerIn.getHeldItem(handIn))
     }
 }
