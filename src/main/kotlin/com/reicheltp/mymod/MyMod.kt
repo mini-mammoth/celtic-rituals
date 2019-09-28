@@ -1,9 +1,12 @@
 package com.reicheltp.mymod
 
+import com.reicheltp.mymod.items.Knife
 import net.alexwells.kottle.FMLKotlinModLoadingContext
 import net.alexwells.kottle.KotlinEventBusSubscriber
 import net.minecraft.block.Block
 import net.minecraft.block.Blocks
+import net.minecraft.item.Item
+import net.minecraft.item.ItemGroup
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -15,21 +18,28 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import org.apache.logging.log4j.LogManager
-import java.util.function.Consumer
-import java.util.stream.Collectors
+import java.rmi.registry.Registry
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("my-mod")
+@Mod(MyMod.MOD_ID)
 class MyMod {
+    companion object {
+
+        // Directly reference a log4j logger.
+        private val LOGGER = LogManager.getLogger()
+
+        const val MOD_ID = "my-mod"
+    }
+
     init {
         // Register the setup method for modloading
-        FMLKotlinModLoadingContext.get().modEventBus.addListener<FMLCommonSetupEvent>(Consumer<FMLCommonSetupEvent> { this.setup(it) })
+        FMLKotlinModLoadingContext.get().modEventBus.addListener<FMLCommonSetupEvent> { this.setup(it) }
         // Register the enqueueIMC method for modloading
-        FMLKotlinModLoadingContext .get().modEventBus.addListener<InterModEnqueueEvent>(Consumer<InterModEnqueueEvent> { this.enqueueIMC(it) })
+        FMLKotlinModLoadingContext.get().modEventBus.addListener<InterModEnqueueEvent> { this.enqueueIMC(it) }
         // Register the processIMC method for modloading
-        FMLKotlinModLoadingContext .get().modEventBus.addListener<InterModProcessEvent>(Consumer<InterModProcessEvent> { this.processIMC(it) })
+        FMLKotlinModLoadingContext.get().modEventBus.addListener<InterModProcessEvent> { this.processIMC(it) }
         // Register the doClientStuff method for modloading
-        FMLKotlinModLoadingContext .get().modEventBus.addListener<FMLClientSetupEvent>(Consumer<FMLClientSetupEvent> { this.doClientStuff(it) })
+        FMLKotlinModLoadingContext.get().modEventBus.addListener<FMLClientSetupEvent> { this.doClientStuff(it) }
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this)
@@ -75,11 +85,15 @@ class MyMod {
             // register a new block here
             LOGGER.info("HELLO from Register Block")
         }
-    }
 
-    companion object {
+        @SubscribeEvent
+        fun registerItems(event: RegistryEvent.Register<Item>) {
+            // register a new item here
+            LOGGER.info("Register items")
 
-        // Directly reference a log4j logger.
-        private val LOGGER = LogManager.getLogger()
+            event.registry.registerAll(
+                    Knife()
+            )
+        }
     }
 }
