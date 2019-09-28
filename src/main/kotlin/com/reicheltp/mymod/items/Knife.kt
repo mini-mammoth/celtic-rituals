@@ -12,6 +12,11 @@ import net.minecraft.util.*
 import net.minecraft.world.World
 import org.apache.logging.log4j.LogManager
 
+/**
+ * This knife is used to sacrifice mobs to trigger rituals.
+ *
+ * Right-click a mob to sacrifice it.
+ */
 class Knife : Item(Properties()
         .maxStackSize(1)
         .maxDamage(1)
