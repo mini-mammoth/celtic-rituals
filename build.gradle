@@ -70,7 +70,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                mymod {
+                celtic_rituals {
                     source sourceSets.main
                 }
             }
@@ -86,7 +86,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                mymod {
+                celtic_rituals {
                     source sourceSets.main
                 }
             }
@@ -101,10 +101,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'mymod', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'celtic_rituals', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                mymod {
+                celtic_rituals {
                     source sourceSets.main
                 }
             }

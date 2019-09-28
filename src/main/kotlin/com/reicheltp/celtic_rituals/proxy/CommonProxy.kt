@@ -1,6 +1,6 @@
-package com.reicheltp.mymod.proxy
+package com.reicheltp.celtic_rituals.proxy
 
-import com.reicheltp.mymod.items.Knife
+import com.reicheltp.celtic_rituals.items.Knife
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraftforge.event.RegistryEvent

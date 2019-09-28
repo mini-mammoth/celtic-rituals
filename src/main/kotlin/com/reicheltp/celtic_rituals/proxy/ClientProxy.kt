@@ -1,4 +1,4 @@
-package com.reicheltp.mymod.proxy
+package com.reicheltp.celtic_rituals.proxy
 
 /**
  * Register stuff we need on client side only. Usually used to register particles and GUIs.

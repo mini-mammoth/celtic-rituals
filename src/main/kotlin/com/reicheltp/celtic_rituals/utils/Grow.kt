@@ -1,4 +1,4 @@
-package com.reicheltp.mymod.utils
+package com.reicheltp.celtic_rituals.utils
 
 import net.minecraft.block.IGrowable
 import net.minecraft.util.math.BlockPos

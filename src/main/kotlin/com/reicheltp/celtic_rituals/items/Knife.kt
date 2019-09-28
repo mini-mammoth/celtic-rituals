@@ -1,7 +1,7 @@
-package com.reicheltp.mymod.items
+package com.reicheltp.celtic_rituals.items
 
-import com.reicheltp.mymod.MOD_ID
-import com.reicheltp.mymod.utils.Grow
+import com.reicheltp.celtic_rituals.MOD_ID
+import com.reicheltp.celtic_rituals.utils.Grow
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.ChickenEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -9,7 +9,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.util.*
-import net.minecraft.world.World
 import org.apache.logging.log4j.LogManager
 
 /**

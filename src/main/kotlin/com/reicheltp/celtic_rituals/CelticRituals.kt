@@ -1,14 +1,14 @@
-package com.reicheltp.mymod
+package com.reicheltp.celtic_rituals
 
-import com.reicheltp.mymod.proxy.ClientProxy
-import com.reicheltp.mymod.proxy.CommonProxy
-import com.reicheltp.mymod.proxy.ServerProxy
+import com.reicheltp.celtic_rituals.proxy.ClientProxy
+import com.reicheltp.celtic_rituals.proxy.CommonProxy
+import com.reicheltp.celtic_rituals.proxy.ServerProxy
 import net.alexwells.kottle.FMLKotlinModLoadingContext
 import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.common.Mod
 import java.util.function.Supplier
 
-const val MOD_ID = "my-mod"
+const val MOD_ID = "celtic_rituals"
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MOD_ID)
