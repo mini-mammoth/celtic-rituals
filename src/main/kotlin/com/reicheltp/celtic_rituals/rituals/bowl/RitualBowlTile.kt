@@ -51,6 +51,15 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEn
     fun getStackInSlot(index: Int): ItemStack = ingredients.map { it.getStackInSlot(index) }.orElse(ItemStack.EMPTY)
     fun getSizeInventory(): Int = ingredients.map { it.slots }.orElse(0)
 
+    fun decrStackSize(index: Int, count: Int): ItemStack =
+            ingredients.map { it.extractItem(index, count, false) }.orElse(ItemStack.EMPTY)
+
+    fun setInventorySlotContents(index: Int, stack: ItemStack) =
+            ingredients.ifPresent { it.setStackInSlot(index, stack) }
+
+    fun removeStackFromSlot(index: Int): ItemStack =
+            ingredients.map { it.extractItem(index, 1, false) }.orElse(ItemStack.EMPTY)
+
     override fun remove() {
         ingredients.invalidate()
 

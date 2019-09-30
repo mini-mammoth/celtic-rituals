@@ -1,14 +1,20 @@
 package com.reicheltp.celtic_rituals.rituals.bowl
 
 import com.reicheltp.celtic_rituals.MOD_ID
+import com.reicheltp.celtic_rituals.utils.canBeCombined
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.InventoryHelper
+import net.minecraft.inventory.ItemStackHelper
+import net.minecraft.item.Items
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.Hand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
@@ -63,5 +69,55 @@ class RitualBowlBlock : Block(
 
             super.onReplaced(state, worldIn, pos, newState, isMoving)
         }
+    }
+
+    override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): Boolean {
+        if (handIn != Hand.MAIN_HAND) {
+            return false
+        }
+
+        val tile = worldIn.getTileEntity(pos)
+        if (tile !is RitualBowlTile) {
+            return false
+        }
+
+        if (player.heldItemMainhand.item == Items.FLINT_AND_STEEL) {
+            // TODO: This will ignite the bowl and start a ritual
+            return false
+        }
+
+        // Sneak pick pulls a stack from bowl
+        if (player.heldItemMainhand.isEmpty && player.isSneaking) {
+            for (i in 0 until tile.getSizeInventory()) {
+                val stack = tile.getStackInSlot(i)
+                if (stack.isEmpty) {
+                    continue
+                }
+
+                InventoryHelper.spawnItemStack(worldIn, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), stack)
+            }
+        }
+
+        // Use item on bowl puts it in
+        for (i in 0 until tile.getSizeInventory()) {
+            val stack = tile.getStackInSlot(i)
+
+            when {
+                stack.isEmpty -> {
+                    val item = player.heldItemMainhand.split(1)
+                    tile.setInventorySlotContents(i, item)
+
+                    return true
+                }
+                stack.canBeCombined(player.heldItemMainhand) -> {
+                    player.heldItemMainhand.shrink(1)
+                    stack.grow(1)
+
+                    return true
+                }
+            }
+        }
+
+        return false
     }
 }
