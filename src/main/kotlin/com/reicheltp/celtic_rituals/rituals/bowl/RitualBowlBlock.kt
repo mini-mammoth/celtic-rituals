@@ -5,6 +5,7 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
+import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.shapes.ISelectionContext
@@ -30,7 +31,7 @@ class RitualBowlBlock : Block(
         registryName = ResourceLocation(MOD_ID, "ritual_bowl")
     }
 
-    override fun isSolid(state: BlockState): Boolean {
+   override fun isSolid(state: BlockState): Boolean {
         // TODO: This seems to be deprecated. We should discover a better way.
         return false
     }
@@ -38,4 +39,8 @@ class RitualBowlBlock : Block(
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape {
         return SHAPE
     }
+
+    override fun hasTileEntity(state: BlockState?): Boolean = true
+
+    override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity? = RitualBowlTile()
 }
