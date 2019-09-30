@@ -47,7 +47,10 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEn
         }
 
         return super.getCapability(cap, side)
-        }
+    }
+
+    fun getStackInSlot(index: Int): ItemStack = incredients.map { it.getStackInSlot(index) }.orElse(ItemStack.EMPTY)
+    fun getSizeInventory(): Int = incredients.map { it.slots }.orElse(0)
 
     override fun remove() {
         incredients.invalidate()
