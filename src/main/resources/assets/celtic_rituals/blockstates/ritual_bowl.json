@@ -1,0 +1,45 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "celtic_rituals:block/ritual_bowl" }
+    },
+    {   "when": { "enabled": true },
+      "apply": [
+        { "model": "celtic_rituals:block/fire_floor0" },
+        { "model": "celtic_rituals:block/fire_floor1" }
+      ]
+    },
+    {   "when": { "enabled": true },
+      "apply": [
+        { "model": "celtic_rituals:block/fire_side0" },
+        { "model": "celtic_rituals:block/fire_side1" },
+        { "model": "celtic_rituals:block/fire_side_alt0" },
+        { "model": "celtic_rituals:block/fire_side_alt1" }
+      ]
+    },
+    {   "when": { "enabled": true },
+      "apply": [
+        { "model": "celtic_rituals:block/fire_side0", "y": 90 },
+        { "model": "celtic_rituals:block/fire_side1", "y": 90 },
+        { "model": "celtic_rituals:block/fire_side_alt0", "y": 90 },
+        { "model": "celtic_rituals:block/fire_side_alt1", "y": 90 }
+      ]
+    },
+    {   "when": { "enabled": true },
+      "apply": [
+        { "model": "celtic_rituals:block/fire_side0", "y": 180 },
+        { "model": "celtic_rituals:block/fire_side1", "y": 180 },
+        { "model": "celtic_rituals:block/fire_side_alt0", "y": 180 },
+        { "model": "celtic_rituals:block/fire_side_alt1", "y": 180 }
+      ]
+    },
+    {   "when": { "enabled": true },
+      "apply": [
+        { "model": "celtic_rituals:block/fire_side0", "y": 270 },
+        { "model": "celtic_rituals:block/fire_side1", "y": 270 },
+        { "model": "celtic_rituals:block/fire_side_alt0", "y": 270 },
+        { "model": "celtic_rituals:block/fire_side_alt1", "y": 270 }
+      ]
+    }
+  ]
+}
