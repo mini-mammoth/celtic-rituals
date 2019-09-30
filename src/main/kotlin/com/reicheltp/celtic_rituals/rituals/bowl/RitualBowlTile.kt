@@ -1,8 +1,10 @@
 package com.reicheltp.celtic_rituals.rituals.bowl
 
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
+import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
@@ -10,17 +12,15 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
+import java.util.*
 
 /**
  * TileEntity for @see RitualBowlBlock entity.
  */
-class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEntity {
+class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!) {
     // The item handler capability keeps
     private val ingredients = LazyOptional.of { ItemStackHandler(5) }
 
-    override fun tick() {
-        if(world?.isRemote == true){
-            System.out.println("TICK")
     /**
      * Used when world is loaded an the tile entity is reconstructed.
      */
@@ -42,6 +42,11 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEn
      */
     override fun <T : Any?> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T> {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            // We can not push / pull new items as long as the ritual is running.
+            if(blockState.get(BlockStateProperties.ENABLED)){
+                return super.getCapability(cap, side)
+            }
+
             return ingredients.cast()
         }
 
@@ -59,6 +64,8 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEn
 
     fun removeStackFromSlot(index: Int): ItemStack =
             ingredients.map { it.extractItem(index, 1, false) }.orElse(ItemStack.EMPTY)
+
+    fun clear() = ingredients.invalidate()
 
     override fun remove() {
         ingredients.invalidate()
