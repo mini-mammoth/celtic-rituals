@@ -1,7 +1,6 @@
 package com.reicheltp.celtic_rituals.rituals.bowl
 
 import com.reicheltp.celtic_rituals.init.ModBlocks
-import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.tileentity.ITickableTileEntity
@@ -17,7 +16,7 @@ import net.minecraftforge.items.ItemStackHandler
  */
 class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEntity {
     // The item handler capability keeps
-    private val incredients = LazyOptional.of { ItemStackHandler(5) }
+    private val ingredients = LazyOptional.of { ItemStackHandler(5) }
 
     override fun tick() {
         if(world?.isRemote == true){
@@ -26,7 +25,7 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEn
      * Used when world is loaded an the tile entity is reconstructed.
      */
     override fun read(tag: CompoundNBT) {
-        incredients.ifPresent { it.deserializeNBT(tag.getCompound("inv")) }
+        ingredients.ifPresent { it.deserializeNBT(tag.getCompound("inv")) }
         super.read(tag)
     }
 
@@ -34,7 +33,7 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEn
      * Used when world is saved. We have to store all data we want to keep over the world
      */
     override fun write(tag: CompoundNBT): CompoundNBT {
-        incredients.ifPresent { tag.put("inv", it.serializeNBT()) }
+        ingredients.ifPresent { tag.put("inv", it.serializeNBT()) }
         return super.write(tag)
     }
 
@@ -43,17 +42,17 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), ITickableTileEn
      */
     override fun <T : Any?> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T> {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return incredients.cast()
+            return ingredients.cast()
         }
 
         return super.getCapability(cap, side)
     }
 
-    fun getStackInSlot(index: Int): ItemStack = incredients.map { it.getStackInSlot(index) }.orElse(ItemStack.EMPTY)
-    fun getSizeInventory(): Int = incredients.map { it.slots }.orElse(0)
+    fun getStackInSlot(index: Int): ItemStack = ingredients.map { it.getStackInSlot(index) }.orElse(ItemStack.EMPTY)
+    fun getSizeInventory(): Int = ingredients.map { it.slots }.orElse(0)
 
     override fun remove() {
-        incredients.invalidate()
+        ingredients.invalidate()
 
         super.remove()
     }
