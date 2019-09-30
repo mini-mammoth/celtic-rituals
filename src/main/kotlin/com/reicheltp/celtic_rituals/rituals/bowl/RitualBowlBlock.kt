@@ -80,14 +80,12 @@ class RitualBowlBlock : Block(
     override fun onReplaced(state: BlockState, worldIn: World, pos: BlockPos, newState: BlockState, isMoving: Boolean) {
         if (state.block !== newState.block) {
             if (state.get(BlockStateProperties.ENABLED)) {
+                // Destroying a running ritual will loose all items
                 worldIn.setBlockState(pos, Blocks.FIRE.defaultState)
             } else {
                 val tile = worldIn.getTileEntity(pos)
                 if (tile is RitualBowlTile) {
-                    for (i in 0 until tile.getSizeInventory()) {
-                        InventoryHelper.spawnItemStack(worldIn, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), tile.getStackInSlot(i))
-                    }
-                    worldIn.updateComparatorOutputLevel(pos, this)
+                    InventoryHelper.dropInventoryItems(worldIn, pos, tile)
                 }
             }
 
@@ -142,7 +140,7 @@ class RitualBowlBlock : Block(
 
         // Sneak pick pulls a stack from bowl
         if (!inProgress && player.heldItemMainhand.isEmpty && player.isSneaking) {
-            for (i in 0 until tile.getSizeInventory()) {
+            for (i in 0 until tile.sizeInventory) {
                 val stack = tile.getStackInSlot(i)
                 if (stack.isEmpty) {
                     continue
@@ -154,7 +152,7 @@ class RitualBowlBlock : Block(
 
         if (!inProgress) {
             // Use item on bowl puts it in
-            for (i in 0 until tile.getSizeInventory()) {
+            for (i in 0 until tile.sizeInventory) {
                 val stack = tile.getStackInSlot(i)
 
                 when {
