@@ -39,7 +39,7 @@ class Knife : SwordItem(ItemTier.WOOD, 1, 1f, Properties()
             target.attackEntityFrom(DamageSource.MAGIC, target.maxHealth)
             Grow.aroundTarget(target.world, target.position, 3)
 
-            Spawn.spawnEntityAroundPosition(target.world, EntityType.ZOMBIE, playerIn, playerIn.position, 3,7, 5)
+            Spawn.spawnEntityAroundPosition(target.world, EntityType.ZOMBIE, playerIn, playerIn.position, 3, 7, 5)
 
             return true
         }
