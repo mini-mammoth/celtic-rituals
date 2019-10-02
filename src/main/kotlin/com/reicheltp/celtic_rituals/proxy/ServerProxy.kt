@@ -6,5 +6,4 @@ package com.reicheltp.celtic_rituals.proxy
  * @See CommonProxy for registrations on both sides.
  * @see ClientProxy for client-side only registrations.
  */
-class ServerProxy: CommonProxy() {
-}
+class ServerProxy : CommonProxy()

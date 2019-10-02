@@ -1,6 +1,5 @@
 package com.reicheltp.celtic_rituals.utils
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.ItemStackHandler
 
@@ -20,7 +19,7 @@ fun ItemStack.canBeCombined(stack2: ItemStack): Boolean {
  * Sets all slots empty.
  */
 fun ItemStackHandler.clear() {
-    for(i in 0 until this.slots){
+    for (i in 0 until this.slots) {
         this.setStackInSlot(i, ItemStack.EMPTY)
     }
 }
@@ -29,8 +28,8 @@ fun ItemStackHandler.clear() {
  * Sets all slots empty.
  */
 fun ItemStackHandler.isEmpty(): Boolean {
-    for(i in 0 until this.slots){
-        if (!this.getStackInSlot(i).isEmpty){
+    for (i in 0 until this.slots) {
+        if (!this.getStackInSlot(i).isEmpty) {
             return false
         }
     }

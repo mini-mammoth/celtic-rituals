@@ -3,10 +3,10 @@ package com.reicheltp.celtic_rituals
 import com.reicheltp.celtic_rituals.proxy.ClientProxy
 import com.reicheltp.celtic_rituals.proxy.CommonProxy
 import com.reicheltp.celtic_rituals.proxy.ServerProxy
+import java.util.function.Supplier
 import net.alexwells.kottle.FMLKotlinModLoadingContext
 import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.common.Mod
-import java.util.function.Supplier
 
 const val MOD_ID = "celtic_rituals"
 
