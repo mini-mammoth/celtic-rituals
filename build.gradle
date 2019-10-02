@@ -12,6 +12,9 @@ buildscript {
 
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.3.50"
+
+    id "org.jlleitschuh.gradle.ktlint" version "9.0.0"
+    id "org.jlleitschuh.gradle.ktlint-idea" version "9.0.0"
 }
 
 
@@ -32,6 +35,12 @@ repositories {
 
 configurations {
     mod
+}
+
+task initIdea {
+    dependsOn "addKtlintCheckGitPreCommitHook"
+    dependsOn "ktlintApplyToIdea"
+    dependsOn "genIntellijRuns"
 }
 
 dependencies {
@@ -69,6 +78,11 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
+            environment += [
+                assetDirectory: file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
+                nativesDirectory: extractNatives.output
+            ]
+
             mods {
                 celtic_rituals {
                     source sourceSets.main
@@ -84,6 +98,11 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+
+            environment += [
+                assetDirectory: file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
+                nativesDirectory: extractNatives.output
+            ]
 
             mods {
                 celtic_rituals {
@@ -102,6 +121,11 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             args '--mod', 'celtic_rituals', '--all', '--output', file('src/generated/resources/')
+
+            environment += [
+                assetDirectory: file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
+                nativesDirectory: extractNatives.output
+            ]
 
             mods {
                 celtic_rituals {
