@@ -42,7 +42,7 @@ object Spawn {
                 mobPos = updatedBlockPos
             }
 
-            success == success && entityType.spawn(world, null, playerIn, mobPos, SpawnReason.MOB_SUMMONED, true, false) != null
+            success = success && entityType.spawn(world, null, playerIn, mobPos, SpawnReason.MOB_SUMMONED, true, false) != null
         }
 
         return success
