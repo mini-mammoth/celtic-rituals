@@ -2,6 +2,8 @@ package com.reicheltp.celtic_rituals.items
 
 import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.utils.Grow
+import com.reicheltp.celtic_rituals.utils.Spawn
+import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.ChickenEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -36,6 +38,8 @@ class Knife : SwordItem(ItemTier.WOOD, 1, 1f, Properties()
         if (validTarget) {
             target.attackEntityFrom(DamageSource.MAGIC, target.maxHealth)
             Grow.aroundTarget(target.world, target.position, 3)
+
+            Spawn.spawnEntityAroundPosition(target.world, EntityType.ZOMBIE, playerIn, playerIn.position, 3, 7, 5)
 
             return true
         }

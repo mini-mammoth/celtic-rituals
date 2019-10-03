@@ -1,6 +1,7 @@
 package com.reicheltp.celtic_rituals.proxy
 
 import com.reicheltp.celtic_rituals.MOD_ID
+import com.reicheltp.celtic_rituals.blocks.BoneStandBlock
 import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.items.Knife
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlBlock
@@ -24,7 +25,8 @@ abstract class CommonProxy {
     @SubscribeEvent
     fun onBlocksRegistry(event: RegistryEvent.Register<Block>) {
         event.registry.registerAll(
-                RitualBowlBlock()
+            RitualBowlBlock(),
+            BoneStandBlock()
         )
     }
 
