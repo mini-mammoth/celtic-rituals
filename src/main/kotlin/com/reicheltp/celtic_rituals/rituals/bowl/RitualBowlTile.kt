@@ -7,6 +7,8 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
+import net.minecraft.network.NetworkManager
+import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
@@ -72,6 +74,23 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), IInventory {
 
     // TODO: Checkout what this method does
     override fun isUsableByPlayer(player: PlayerEntity): Boolean = false
+
+    // We need those three functions to sync the state from the world to the client when chuck is loaded on a remote world.
+    // This is only necessary since we need the inv on the client for RitualBowlRenderer
+    override fun getUpdateTag(): CompoundNBT {
+        return this.write(CompoundNBT())
+    }
+
+    override fun getUpdatePacket(): SUpdateTileEntityPacket? {
+        return SUpdateTileEntityPacket(this.getPos(), 0, this.write(CompoundNBT()))
+    }
+
+    override fun onDataPacket(net: NetworkManager, pkt: SUpdateTileEntityPacket?) {
+        if (pkt != null) {
+            this.setPos(pkt.pos)
+            this.read(pkt.nbtCompound)
+        }
+    }
 
     override fun remove() {
         ingredients.invalidate()
