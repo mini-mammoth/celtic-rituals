@@ -10,6 +10,7 @@ import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.items.Knife
 import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
+import com.reicheltp.celtic_rituals.items.RitualBagItem
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlBlock
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import java.util.function.Supplier
@@ -58,7 +59,8 @@ abstract class CommonProxy {
                     MOD_ID,
                     "ritual_bowl"
                 )
-            )
+            ),
+            RitualBagItem()
         )
     }
 

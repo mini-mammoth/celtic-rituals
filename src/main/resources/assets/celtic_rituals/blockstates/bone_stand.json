@@ -3,6 +3,8 @@
     "facing=north": { "model": "celtic_rituals:block/bone_stand" },
     "facing=south": { "model": "celtic_rituals:block/bone_stand", "y": 180 },
     "facing=west": { "model": "celtic_rituals:block/bone_stand", "y": 270 },
-    "facing=east": { "model": "celtic_rituals:block/bone_stand", "y": 90 }
+    "facing=east": { "model": "celtic_rituals:block/bone_stand", "y": 90 },
+    "facing=up": { "model": "celtic_rituals:block/bone_stand" },
+    "facing=down": { "model": "celtic_rituals:block/bone_stand" }
   }
 }
