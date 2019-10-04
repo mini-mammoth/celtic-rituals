@@ -4,9 +4,7 @@ import com.reicheltp.celtic_rituals.MOD_ID
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
-import net.minecraft.block.GrassBlock
 import net.minecraft.block.material.Material
-import net.minecraft.block.material.MaterialColor
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.state.StateContainer
@@ -19,13 +17,20 @@ import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 
-class BoneStandBlock : Block(Properties.create(Material.ROCK, MaterialColor.SAND).hardnessAndResistance(2.0f)) {
+class BoneStandBlock : Block(Properties.create(Material.WOOD).hardnessAndResistance(2.0f)) {
     init {
         registryName = ResourceLocation(MOD_ID, "bone_stand")
     }
 
     companion object {
         private val SHAPE = makeCuboidShape(5.0, .0, 5.0, 11.0, 12.0, 11.0)
+
+        /**
+         * Returns true, if the bone can be placed on this block
+         */
+        fun isValidUnderground(block: Block): Boolean {
+            return block === Blocks.GRASS_BLOCK || block === Blocks.DIRT
+        }
     }
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape {
@@ -33,18 +38,17 @@ class BoneStandBlock : Block(Properties.create(Material.ROCK, MaterialColor.SAND
     }
 
     override fun neighborChanged(state: BlockState, worldIn: World, pos: BlockPos, blockIn: Block, fromPos: BlockPos, p_220069_6_: Boolean) {
-        var blockBeneath = worldIn.getBlockState(fromPos).block
+        val blockBeneath = worldIn.getBlockState(fromPos).block
 
         // if block below gets changed to something else than dirt or grass drop a bone and remove BoneStandBlock
-        if (pos.y == fromPos.y + 1 && pos.x == fromPos.x && pos.z == fromPos.z && blockBeneath !is GrassBlock && blockBeneath != Blocks.DIRT) {
+        if (pos.down() == fromPos && !isValidUnderground(blockBeneath)) {
             worldIn.setBlockState(pos, Blocks.AIR.defaultState)
+        }
+    }
 
-            val boneItemStack = ItemStack(Items.BONE, 1)
-
-            if (blockBeneath == Blocks.AIR)
-                spawnAsEntity(worldIn, fromPos, boneItemStack)
-            else
-                spawnAsEntity(worldIn, pos, boneItemStack)
+    override fun onReplaced(state: BlockState, worldIn: World, pos: BlockPos, newState: BlockState, isMoving: Boolean) {
+        if (state.block !== newState.block && !worldIn.isRemote) {
+            spawnAsEntity(worldIn, pos, ItemStack(Items.BONE, 1))
         }
     }
 
