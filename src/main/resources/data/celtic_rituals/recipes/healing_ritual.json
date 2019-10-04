@@ -1,0 +1,14 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    }
+  ],
+  "result": {
+    "item": "minecraft:glowstone_dust"
+  }
+}

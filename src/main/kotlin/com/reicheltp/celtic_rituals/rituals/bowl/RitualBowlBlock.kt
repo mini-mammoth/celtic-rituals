@@ -2,6 +2,7 @@ package com.reicheltp.celtic_rituals.rituals.bowl
 
 import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.utils.canBeCombined
 import java.util.Random
 import net.minecraft.advancements.CriteriaTriggers
@@ -13,6 +14,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.inventory.EquipmentSlotType
+import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
@@ -20,6 +22,7 @@ import net.minecraft.state.StateContainer
 import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.BlockRenderLayer
+import net.minecraft.util.DamageSource
 import net.minecraft.util.Hand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
@@ -28,6 +31,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
+import net.minecraft.world.Explosion
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.IEnviromentBlockReader
 import net.minecraft.world.World
@@ -132,9 +136,11 @@ class RitualBowlBlock : Block(
                 player.heldItemMainhand.damageItem(1, player, { it.sendBreakAnimation(handIn) })
             }
 
+            val recipe = worldIn.server!!.recipeManager.getRecipe<IInventory, BowlRitualRecipe>(ModRecipes.BOWL_RITUAL_TYPE!!, tile, worldIn)
+
             if (!inProgress) {
                 worldIn.setBlockState(pos, state.with(BlockStateProperties.ENABLED, true))
-                worldIn.pendingBlockTicks.scheduleTick(pos, ModBlocks.RITUAL_BOWL!!, 200)
+                worldIn.pendingBlockTicks.scheduleTick(pos, ModBlocks.RITUAL_BOWL!!, recipe.map { it.duration }.orElse(BowlRitualRecipe.DEFAULT_DURATION))
             }
 
             return true
@@ -177,11 +183,23 @@ class RitualBowlBlock : Block(
         return false
     }
 
-    override fun tick(state: BlockState, worldIn: World, pos: BlockPos, random: Random) {
-        worldIn.setBlockState(pos, state.with(BlockStateProperties.ENABLED, false))
+    override fun tick(state: BlockState, world: World, pos: BlockPos, random: Random) {
+        world.setBlockState(pos, state.with(BlockStateProperties.ENABLED, false))
 
-        // TODO: Craft the item / Perform the ritual
+        if (!world.isRemote) {
+            val tile = world.getTileEntity(pos) as RitualBowlTile
+            val recipe = world.server!!.recipeManager.getRecipe<IInventory, BowlRitualRecipe>(ModRecipes.BOWL_RITUAL_TYPE!!, tile, world)
 
-        super.tick(state, worldIn, pos, random)
+            if (!recipe.isPresent) {
+                // Fail
+                world.createExplosion(null, DamageSource.MAGIC, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 2.0f, false, Explosion.Mode.BREAK)
+                return
+            }
+
+            val result = recipe.get().getCraftingResult(tile)
+
+            tile.clear()
+            tile.setInventorySlotContents(0, result)
+        }
     }
 }
