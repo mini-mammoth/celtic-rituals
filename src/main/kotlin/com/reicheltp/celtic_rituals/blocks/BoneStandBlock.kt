@@ -39,18 +39,17 @@ class BoneStandBlock : Block(Properties.create(Material.ROCK, MaterialColor.SAND
     }
 
     override fun neighborChanged(state: BlockState, worldIn: World, pos: BlockPos, blockIn: Block, fromPos: BlockPos, p_220069_6_: Boolean) {
-        var blockBeneath = worldIn.getBlockState(fromPos).block
+        val blockBeneath = worldIn.getBlockState(fromPos).block
 
         // if block below gets changed to something else than dirt or grass drop a bone and remove BoneStandBlock
         if (pos.down() == fromPos && !isValidUnderground(blockBeneath)) {
             worldIn.setBlockState(pos, Blocks.AIR.defaultState)
+        }
+    }
 
-            val boneItemStack = ItemStack(Items.BONE, 1)
-
-            if (blockBeneath == Blocks.AIR)
-                spawnAsEntity(worldIn, fromPos, boneItemStack)
-            else
-                spawnAsEntity(worldIn, pos, boneItemStack)
+    override fun onReplaced(state: BlockState, worldIn: World, pos: BlockPos, newState: BlockState, isMoving: Boolean) {
+        if (state.block !== newState.block && !worldIn.isRemote) {
+            spawnAsEntity(worldIn, pos, ItemStack(Items.BONE, 1))
         }
     }
 
