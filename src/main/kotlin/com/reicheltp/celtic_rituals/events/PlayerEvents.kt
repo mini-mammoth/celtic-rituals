@@ -1,10 +1,9 @@
 package com.reicheltp.celtic_rituals.events
 
 import com.reicheltp.celtic_rituals.MOD_ID
+import com.reicheltp.celtic_rituals.blocks.BoneStandBlock
 import com.reicheltp.celtic_rituals.init.ModBlocks
 import net.alexwells.kottle.KotlinEventBusSubscriber
-import net.minecraft.block.Blocks
-import net.minecraft.block.GrassBlock
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.Items
 import net.minecraft.state.properties.BlockStateProperties
@@ -29,20 +28,20 @@ object PlayerEvents {
 
         val bonePos = BlockPos(event.pos.x, event.pos.y + 1, event.pos.z)
 
-        if (heldItemStackInMainHand.item == Items.BONE && block is GrassBlock || block == Blocks.DIRT) {
+        if (heldItemStackInMainHand.item == Items.BONE && BoneStandBlock.isValidUnderground(block)) {
             val boneStandState = ModBlocks.BONE_STAND!!.defaultState
 
             event.world.setBlockState(
-                bonePos,
-                boneStandState.with(BlockStateProperties.FACING, getFacingFromEntity(bonePos, event.player))
+                    bonePos,
+                    boneStandState.with(BlockStateProperties.FACING, getFacingFromEntity(bonePos, event.player))
             )
             event.world.playSound(
-                event.player,
-                event.pos,
-                SoundEvents.ITEM_SHOVEL_FLATTEN,
-                SoundCategory.BLOCKS,
-                1.0f,
-                1.0f
+                    event.player,
+                    event.pos,
+                    SoundEvents.ITEM_SHOVEL_FLATTEN,
+                    SoundCategory.BLOCKS,
+                    1.0f,
+                    1.0f
             )
         }
     }

@@ -4,7 +4,6 @@ import com.reicheltp.celtic_rituals.MOD_ID
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
-import net.minecraft.block.GrassBlock
 import net.minecraft.block.material.Material
 import net.minecraft.block.material.MaterialColor
 import net.minecraft.item.ItemStack
@@ -26,6 +25,13 @@ class BoneStandBlock : Block(Properties.create(Material.ROCK, MaterialColor.SAND
 
     companion object {
         private val SHAPE = makeCuboidShape(5.0, .0, 5.0, 11.0, 12.0, 11.0)
+
+        /**
+         * Returns true, if the bone can be placed on this block
+         */
+        fun isValidUnderground(block: Block): Boolean {
+            return block === Blocks.GRASS_BLOCK || block === Blocks.DIRT
+        }
     }
 
     override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape {
@@ -36,7 +42,7 @@ class BoneStandBlock : Block(Properties.create(Material.ROCK, MaterialColor.SAND
         var blockBeneath = worldIn.getBlockState(fromPos).block
 
         // if block below gets changed to something else than dirt or grass drop a bone and remove BoneStandBlock
-        if (pos.y == fromPos.y + 1 && pos.x == fromPos.x && pos.z == fromPos.z && blockBeneath !is GrassBlock && blockBeneath != Blocks.DIRT) {
+        if (pos.down() == fromPos && !isValidUnderground(blockBeneath)) {
             worldIn.setBlockState(pos, Blocks.AIR.defaultState)
 
             val boneItemStack = ItemStack(Items.BONE, 1)
