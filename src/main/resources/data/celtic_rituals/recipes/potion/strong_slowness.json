@@ -1,0 +1,30 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#3a4b60",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    [
+      {
+        "item": "minecraft:rabbit_foot"
+      },
+      {
+        "item": "minecraft:sugar"
+      }
+    ],
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:strong_slowness"
+  }
+}

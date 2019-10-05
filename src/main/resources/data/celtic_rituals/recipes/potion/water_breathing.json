@@ -1,0 +1,19 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#032b7e",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:pufferfish"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:water_breathing"
+  }
+}

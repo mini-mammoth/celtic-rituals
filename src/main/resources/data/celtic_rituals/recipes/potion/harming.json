@@ -1,0 +1,27 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#1d0000",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    [
+      {
+        "item": "minecraft:glistering_melon_slice"
+      },
+      {
+        "item": "minecraft:spider_eye"
+      }
+    ],
+    {
+      "item": "minecraft:fermented_spider_eye"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:harming"
+  }
+}

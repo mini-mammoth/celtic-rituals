@@ -1,0 +1,19 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#232418",
+  "ingredients": [
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:weakness"
+  }
+}
