@@ -61,6 +61,11 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ItemGroup.MISC)) {
     ): ActionResult<ItemStack> {
         val itemStack = playerIn.getHeldItem(handIn)
 
+        if (!getRecipe(itemStack).isPresent) {
+            // You can only throw filled bags
+            return ActionResult(ActionResultType.PASS, itemStack)
+        }
+
         worldIn.playSound(
             playerIn,
             playerIn.posX,
