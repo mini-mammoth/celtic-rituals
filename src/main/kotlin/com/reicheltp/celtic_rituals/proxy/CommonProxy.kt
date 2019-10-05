@@ -57,8 +57,11 @@ abstract class CommonProxy {
     fun registerEntities(event: RegistryEvent.Register<EntityType<*>>) {
         event.registry.registerAll(
             EntityType.Builder.create(RitualBagEntity.RitualBagFactory(), EntityClassification.MISC)
-                .setCustomClientFactory(::RitualBagEntity).setTrackingRange(128).setUpdateInterval(20)
-                .setShouldReceiveVelocityUpdates(true).build("ritual_bag_entity").setRegistryName(
+                .setCustomClientFactory(::RitualBagEntity)
+                .setTrackingRange(128).setUpdateInterval(20)
+                .setShouldReceiveVelocityUpdates(true)
+                .build("ritual_bag_entity")
+                .setRegistryName(
                     MOD_ID,
                     "ritual_bag_entity"
                 )

@@ -20,22 +20,35 @@ import net.minecraftforge.fml.network.NetworkHooks
 
 class RitualBagEntity : ThrowableEntity, IRendersAsItem {
     companion object {
-        private val ITEM = EntityDataManager.createKey(RitualBagEntity::class.java, DataSerializers.ITEMSTACK)
+        private val ITEM = EntityDataManager.createKey(
+            RitualBagEntity::class.java,
+            DataSerializers.ITEMSTACK
+        )
     }
 
     constructor(world: World) : super(ModEntities.RITUAL_BAG_ENTITY, world)
-    constructor(packet: FMLPlayMessages.SpawnEntity, world: World) : super(ModEntities.RITUAL_BAG_ENTITY, world)
     constructor(
-        world: World,
-        entity: LivingEntity
+      packet: FMLPlayMessages.SpawnEntity,
+      world: World
+    ) : super(ModEntities.RITUAL_BAG_ENTITY, world)
+
+    constructor(
+      world: World,
+      entity: LivingEntity
     ) : super(ModEntities.RITUAL_BAG_ENTITY as EntityType<out ThrowableEntity>, entity, world)
 
     constructor(
-        world: World,
-        posX: Double,
-        posY: Double,
-        posZ: Double
-    ) : super(ModEntities.RITUAL_BAG_ENTITY as EntityType<out ThrowableEntity>, posX, posY, posZ, world)
+      world: World,
+      posX: Double,
+      posY: Double,
+      posZ: Double
+    ) : super(
+        ModEntities.RITUAL_BAG_ENTITY as EntityType<out ThrowableEntity>,
+        posX,
+        posY,
+        posZ,
+        world
+    )
 
     override fun onImpact(result: RayTraceResult) {
         if (!this.world.isRemote) {
@@ -86,7 +99,10 @@ class RitualBagEntity : ThrowableEntity, IRendersAsItem {
     }
 
     class RitualBagFactory : EntityType.IFactory<RitualBagEntity> {
-        override fun create(p_create_1_: EntityType<RitualBagEntity>, world: World): RitualBagEntity {
+        override fun create(
+          p_create_1_: EntityType<RitualBagEntity>,
+          world: World
+        ): RitualBagEntity {
             return RitualBagEntity(world)
         }
     }

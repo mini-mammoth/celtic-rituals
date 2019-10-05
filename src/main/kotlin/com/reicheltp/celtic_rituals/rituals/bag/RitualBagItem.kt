@@ -25,7 +25,11 @@ class RitualBagItem : SplashPotionItem(Properties().setNoRepair().group(ItemGrou
         registryName = ResourceLocation(MOD_ID, "ritual_bag")
     }
 
-    override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
+    override fun onItemRightClick(
+      worldIn: World,
+      playerIn: PlayerEntity,
+      handIn: Hand
+    ): ActionResult<ItemStack> {
         val itemStack = playerIn.getHeldItem(handIn)
 
         worldIn.playSound(
@@ -42,7 +46,14 @@ class RitualBagItem : SplashPotionItem(Properties().setNoRepair().group(ItemGrou
             val ritualBagEntity = RitualBagEntity(worldIn, playerIn)
 
             ritualBagEntity.setItem(itemStack)
-            ritualBagEntity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0f, 0.7f, 1.0f)
+            ritualBagEntity.shoot(
+                playerIn,
+                playerIn.rotationPitch,
+                playerIn.rotationYaw,
+                -20.0f,
+                0.7f,
+                1.0f
+            )
             worldIn.addEntity(ritualBagEntity)
         }
 

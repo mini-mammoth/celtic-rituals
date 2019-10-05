@@ -1,7 +1,6 @@
 package com.reicheltp.celtic_rituals.rituals.bowl
 
 import com.reicheltp.celtic_rituals.init.ModBlocks
-import com.reicheltp.celtic_rituals.init.ModEntities
 import com.reicheltp.celtic_rituals.utils.clear
 import com.reicheltp.celtic_rituals.utils.isEmpty
 import net.minecraft.entity.player.PlayerEntity
