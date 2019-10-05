@@ -7,6 +7,8 @@ import net.minecraft.entity.IRendersAsItem
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.ThrowableEntity
+import net.minecraft.inventory.Inventory
+import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.network.IPacket
 import net.minecraft.network.datasync.DataSerializers
@@ -58,6 +60,14 @@ class RitualBagEntity : ThrowableEntity, IRendersAsItem {
                 1f
             )
         }
+
+        val recipe = RitualBagItem.getRecipe(item)
+        val inv = Inventory(5)
+        recipe.ifPresent {
+            it.applyEffects(world, position, inv)
+        }
+
+        InventoryHelper.dropInventoryItems(world, position, inv)
 
         // removes the entity
         remove()
