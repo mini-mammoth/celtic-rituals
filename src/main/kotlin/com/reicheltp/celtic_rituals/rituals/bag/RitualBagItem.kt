@@ -98,6 +98,11 @@ class RitualBagItem : SplashPotionItem(Properties().setNoRepair().group(ItemGrou
      * When right-click a Ritual Bowl, we copy the ritual into the bag.
      */
     override fun onItemUse(context: ItemUseContext): ActionResultType {
+        if (getRecipe(context.item).isPresent) {
+            // You can only fill empty bags
+            return ActionResultType.FAIL
+        }
+
         val state = context.world.getBlockState(context.pos)
 
         if (state.block !== ModBlocks.RITUAL_BOWL) {
