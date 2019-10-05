@@ -9,8 +9,10 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 object Spawn {
-    // spawns the specified entity randomly around the blockPos
-    fun <T : Entity> spawnEntityAroundPosition(world: World, entityType: EntityType<T>, playerIn: PlayerEntity, blockPos: BlockPos, minDistance: Int, maxDistance: Int, numberOfEntites: Int = 1): Boolean {
+    /**
+     * Spawns the specified [numberOfEntites] of [entityType] randomly around the [blockPos].
+     */
+    fun <T : Entity> spawnEntityAroundPosition(world: World, entityType: EntityType<T>, playerIn: PlayerEntity?, blockPos: BlockPos, minDistance: Int, maxDistance: Int, numberOfEntites: Int = 1): Boolean {
         require(minDistance < maxDistance) { "maxDistance must be greater than minDistance" }
         require(numberOfEntites > 0) { "numberOfEntites must be greater than 0" }
         val r = world.random

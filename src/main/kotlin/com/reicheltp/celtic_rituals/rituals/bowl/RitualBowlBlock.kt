@@ -2,6 +2,7 @@ package com.reicheltp.celtic_rituals.rituals.bowl
 
 import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.utils.canBeCombined
 import java.util.Random
 import net.minecraft.advancements.CriteriaTriggers
@@ -20,6 +21,7 @@ import net.minecraft.state.StateContainer
 import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.BlockRenderLayer
+import net.minecraft.util.DamageSource
 import net.minecraft.util.Hand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
@@ -28,6 +30,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
+import net.minecraft.world.Explosion
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.IEnviromentBlockReader
 import net.minecraft.world.World
@@ -38,11 +41,11 @@ import net.minecraft.world.World
  * The player puts all his items in a ritual bowl and burn it afterward.
  */
 class RitualBowlBlock : Block(
-        Properties.create(Material.WOOD)
-                .variableOpacity()
-                .hardnessAndResistance(1.0f)
-                .lightValue(14)
-                .sound(SoundType.WOOD)
+    Properties.create(Material.WOOD)
+        .variableOpacity()
+        .hardnessAndResistance(1.0f)
+        .lightValue(14)
+        .sound(SoundType.WOOD)
 ) {
     companion object {
         private val SHAPE = makeCuboidShape(.0, .0, .0, 16.0, 8.0, 16.0)
@@ -54,7 +57,12 @@ class RitualBowlBlock : Block(
         defaultState = stateContainer.baseState.with(BlockStateProperties.ENABLED, false)
     }
 
-    override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape {
+    override fun getShape(
+        state: BlockState,
+        worldIn: IBlockReader,
+        pos: BlockPos,
+        context: ISelectionContext
+    ): VoxelShape {
         return SHAPE
     }
 
@@ -95,7 +103,14 @@ class RitualBowlBlock : Block(
         }
     }
 
-    override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): Boolean {
+    override fun onBlockActivated(
+        state: BlockState,
+        worldIn: World,
+        pos: BlockPos,
+        player: PlayerEntity,
+        handIn: Hand,
+        hit: BlockRayTraceResult
+    ): Boolean {
         if (handIn != Hand.MAIN_HAND) {
             return false
         }
@@ -109,7 +124,14 @@ class RitualBowlBlock : Block(
 
         // Extinguishes an ignited bowl, but removes all items.
         if (player.heldItemMainhand.item == Items.WATER_BUCKET) {
-            worldIn.playSound(player, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5f, 2.6f + (random.nextFloat() - random.nextFloat()) * 0.8f)
+            worldIn.playSound(
+                player,
+                pos,
+                SoundEvents.BLOCK_FIRE_EXTINGUISH,
+                SoundCategory.BLOCKS,
+                0.5f,
+                2.6f + (random.nextFloat() - random.nextFloat()) * 0.8f
+            )
 
             if (inProgress) {
                 worldIn.setBlockState(pos, state.with(BlockStateProperties.ENABLED, false))
@@ -125,16 +147,29 @@ class RitualBowlBlock : Block(
         // Ignites the bowl
         if (player.heldItemMainhand.item == Items.FLINT_AND_STEEL) {
             // TODO: This will ignite the bowl and start a ritual
-            worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0f, random.nextFloat() * 0.4f + 0.8f)
+            worldIn.playSound(
+                player,
+                pos,
+                SoundEvents.ITEM_FLINTANDSTEEL_USE,
+                SoundCategory.BLOCKS,
+                1.0f,
+                random.nextFloat() * 0.4f + 0.8f
+            )
 
             if (player is ServerPlayerEntity) {
                 CriteriaTriggers.PLACED_BLOCK.trigger(player, pos, player.heldItemMainhand)
                 player.heldItemMainhand.damageItem(1, player, { it.sendBreakAnimation(handIn) })
             }
 
-            if (!inProgress) {
+            if (!inProgress && !worldIn.isRemote) {
+                val recipe = worldIn.server!!.recipeManager.getRecipe(ModRecipes.BOWL_RITUAL_TYPE!!, tile, worldIn)
+
                 worldIn.setBlockState(pos, state.with(BlockStateProperties.ENABLED, true))
-                worldIn.pendingBlockTicks.scheduleTick(pos, ModBlocks.RITUAL_BOWL!!, 200)
+                worldIn.pendingBlockTicks.scheduleTick(
+                    pos,
+                    ModBlocks.RITUAL_BOWL!!,
+                    recipe.map { it.duration }.orElse(BowlRitualRecipe.DEFAULT_DURATION)
+                )
             }
 
             return true
@@ -177,11 +212,29 @@ class RitualBowlBlock : Block(
         return false
     }
 
-    override fun tick(state: BlockState, worldIn: World, pos: BlockPos, random: Random) {
-        worldIn.setBlockState(pos, state.with(BlockStateProperties.ENABLED, false))
+    override fun tick(state: BlockState, world: World, pos: BlockPos, random: Random) {
+        world.setBlockState(pos, state.with(BlockStateProperties.ENABLED, false))
 
-        // TODO: Craft the item / Perform the ritual
+        if (!world.isRemote) {
+            val tile = world.getTileEntity(pos) as RitualBowlTile
+            val recipe = world.server!!.recipeManager.getRecipe(ModRecipes.BOWL_RITUAL_TYPE!!, tile, world)
 
-        super.tick(state, worldIn, pos, random)
+            if (!recipe.isPresent) {
+                // Fail
+                world.createExplosion(
+                    null,
+                    DamageSource.MAGIC,
+                    pos.x.toDouble(),
+                    pos.y.toDouble(),
+                    pos.z.toDouble(),
+                    2.0f,
+                    false,
+                    Explosion.Mode.BREAK
+                )
+                return
+            }
+
+            recipe.get().getCraftingResult(tile)
+        }
     }
 }

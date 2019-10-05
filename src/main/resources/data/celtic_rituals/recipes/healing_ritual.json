@@ -1,0 +1,26 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    }
+  ],
+  "result": [
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "effect": "celtic_rituals:spawn_entity",
+      "entity": "minecraft:cow"
+    },
+    {
+      "effect": "celtic_rituals:potion",
+      "potion": "minecraft:healing",
+      "radius": 5.0,
+      "duration": 120
+    }
+  ]
+}
