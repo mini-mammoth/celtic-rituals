@@ -75,10 +75,12 @@ class RitualBagEntity : ThrowableEntity, IRendersAsItem {
         }
     }
 
-    // this needs to be overriden for custom non living entities to render also see:
-    // https://www.minecraftforge.net/forum/topic/72657-solved-1143-entity-renderer-not-rendering/
-    // https://www.minecraftforge.net/forum/topic/75827-solved1144-problem-with-custom-entity-rendering-i-guess/
-    // https://www.minecraftforge.net/forum/topic/71717-solved-1142-register-entities-and-rendering/
+    /**
+     *this needs to be overriden for custom non living entities to render also see:
+     *https://www.minecraftforge.net/forum/topic/72657-solved-1143-entity-renderer-not-rendering/
+     *https://www.minecraftforge.net/forum/topic/75827-solved1144-problem-with-custom-entity-rendering-i-guess/
+     *https://www.minecraftforge.net/forum/topic/71717-solved-1142-register-entities-and-rendering/
+     */
     override fun createSpawnPacket(): IPacket<*> {
         return NetworkHooks.getEntitySpawningPacket(this)
     }

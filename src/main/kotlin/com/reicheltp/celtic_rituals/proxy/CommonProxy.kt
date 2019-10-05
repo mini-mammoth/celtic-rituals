@@ -9,13 +9,14 @@ import com.reicheltp.celtic_rituals.effects.SpawnEntityEffect
 import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.items.Knife
-import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
-import com.reicheltp.celtic_rituals.init.ModEntities
+import com.reicheltp.celtic_rituals.rituals.bag.RitualBagEntity
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
+import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlBlock
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import java.util.function.Supplier
 import net.minecraft.block.Block
+import net.minecraft.entity.EntityClassification
 import net.minecraft.entity.EntityType
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
@@ -54,10 +55,13 @@ abstract class CommonProxy {
 
     @SubscribeEvent
     fun registerEntities(event: RegistryEvent.Register<EntityType<*>>) {
-        ModEntities.RITUAL_BAG_ENTITY.setRegistryName(MOD_ID, "ritual_bag_entity")
-
         event.registry.registerAll(
-            ModEntities.RITUAL_BAG_ENTITY
+            EntityType.Builder.create(RitualBagEntity.RitualBagFactory(), EntityClassification.MISC)
+                .setCustomClientFactory(::RitualBagEntity).setTrackingRange(128).setUpdateInterval(20)
+                .setShouldReceiveVelocityUpdates(true).build("ritual_bag_entity").setRegistryName(
+                    MOD_ID,
+                    "ritual_bag_entity"
+                )
         )
     }
 

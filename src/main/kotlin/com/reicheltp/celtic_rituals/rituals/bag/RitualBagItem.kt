@@ -26,8 +26,8 @@ class RitualBagItem : SplashPotionItem(Properties().setNoRepair().group(ItemGrou
     }
 
     override fun onItemRightClick(worldIn: World, playerIn: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
-        val itemstack = playerIn.getHeldItem(handIn)
-        val itemstack1 = if (playerIn.abilities.isCreativeMode) itemstack.copy() else itemstack.split(1)
+        val itemStack = playerIn.getHeldItem(handIn)
+
         worldIn.playSound(
             playerIn,
             playerIn.posX,
@@ -41,12 +41,12 @@ class RitualBagItem : SplashPotionItem(Properties().setNoRepair().group(ItemGrou
         if (!worldIn.isRemote) {
             val ritualBagEntity = RitualBagEntity(worldIn, playerIn)
 
-            ritualBagEntity.setItem(itemstack1)
+            ritualBagEntity.setItem(itemStack)
             ritualBagEntity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0f, 0.7f, 1.0f)
             worldIn.addEntity(ritualBagEntity)
         }
 
         playerIn.addStat(Stats.ITEM_USED.get(this))
-        return ActionResult(ActionResultType.SUCCESS, itemstack)
+        return ActionResult(ActionResultType.SUCCESS, itemStack)
     }
 }
