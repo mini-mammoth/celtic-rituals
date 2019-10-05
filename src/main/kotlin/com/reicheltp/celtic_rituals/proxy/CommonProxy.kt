@@ -9,11 +9,15 @@ import com.reicheltp.celtic_rituals.effects.SpawnEntityEffect
 import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.items.Knife
+import com.reicheltp.celtic_rituals.rituals.bag.RitualBagEntity
+import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
 import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlBlock
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import java.util.function.Supplier
 import net.minecraft.block.Block
+import net.minecraft.entity.EntityClassification
+import net.minecraft.entity.EntityType
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.crafting.IRecipeSerializer
@@ -41,11 +45,25 @@ abstract class CommonProxy {
 
     @SubscribeEvent
     fun onTileEntityRegistry(event: RegistryEvent.Register<TileEntityType<*>>) {
-        event.registry.register(
+        event.registry.registerAll(
             TileEntityType.Builder.create(
                 Supplier { RitualBowlTile() },
                 ModBlocks.RITUAL_BOWL
             ).build(null).setRegistryName(ResourceLocation(MOD_ID, "ritual_bowl"))
+        )
+    }
+
+    @SubscribeEvent
+    fun registerEntities(event: RegistryEvent.Register<EntityType<*>>) {
+        event.registry.registerAll(
+            EntityType.Builder.create(RitualBagEntity.RitualBagFactory(), EntityClassification.MISC)
+                .setCustomClientFactory(::RitualBagEntity)
+                .setTrackingRange(128).setUpdateInterval(20)
+                .setShouldReceiveVelocityUpdates(true).build("ritual_bag_entity")
+                .setRegistryName(
+                    MOD_ID,
+                    "ritual_bag_entity"
+                )
         )
     }
 
@@ -58,7 +76,8 @@ abstract class CommonProxy {
                     MOD_ID,
                     "ritual_bowl"
                 )
-            )
+            ),
+            RitualBagItem()
         )
     }
 

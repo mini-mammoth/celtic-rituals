@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 object Spawn {
+
     /**
      * Spawns the specified [numberOfEntites] of [entityType] randomly around the [blockPos].
      */
