@@ -136,11 +136,16 @@ class RitualBowlBlock : Block(
                 player.heldItemMainhand.damageItem(1, player, { it.sendBreakAnimation(handIn) })
             }
 
-            val recipe = worldIn.server!!.recipeManager.getRecipe<IInventory, BowlRitualRecipe>(ModRecipes.BOWL_RITUAL_TYPE!!, tile, worldIn)
 
-            if (!inProgress) {
+            if (!inProgress && !worldIn.isRemote) {
+                val recipe = worldIn.server!!.recipeManager.getRecipe(ModRecipes.BOWL_RITUAL_TYPE!!, tile, worldIn)
+
                 worldIn.setBlockState(pos, state.with(BlockStateProperties.ENABLED, true))
-                worldIn.pendingBlockTicks.scheduleTick(pos, ModBlocks.RITUAL_BOWL!!, recipe.map { it.duration }.orElse(BowlRitualRecipe.DEFAULT_DURATION))
+                worldIn.pendingBlockTicks.scheduleTick(
+                    pos,
+                    ModBlocks.RITUAL_BOWL!!,
+                    recipe.map { it.duration }.orElse(BowlRitualRecipe.DEFAULT_DURATION)
+                )
             }
 
             return true
