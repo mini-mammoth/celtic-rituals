@@ -14,7 +14,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemUseContext
-import net.minecraft.item.SplashPotionItem
 import net.minecraft.nbt.StringNBT
 import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.stats.Stats
@@ -26,7 +25,7 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvents
 import net.minecraft.world.World
 
-class RitualBagItem : SplashPotionItem(Properties().setNoRepair().group(ItemGroup.MISC)) {
+class RitualBagItem : Item(Properties().setNoRepair().group(ItemGroup.MISC)) {
     companion object {
         private const val EMPTY_COLOR = 0x70472D
 
