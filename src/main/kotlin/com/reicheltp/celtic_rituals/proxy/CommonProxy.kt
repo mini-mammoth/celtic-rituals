@@ -10,11 +10,13 @@ import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.items.Knife
 import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
-import com.reicheltp.celtic_rituals.items.RitualBagItem
+import com.reicheltp.celtic_rituals.init.ModEntities
+import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlBlock
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import java.util.function.Supplier
 import net.minecraft.block.Block
+import net.minecraft.entity.EntityType
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.crafting.IRecipeSerializer
@@ -42,11 +44,20 @@ abstract class CommonProxy {
 
     @SubscribeEvent
     fun onTileEntityRegistry(event: RegistryEvent.Register<TileEntityType<*>>) {
-        event.registry.register(
+        event.registry.registerAll(
             TileEntityType.Builder.create(
                 Supplier { RitualBowlTile() },
                 ModBlocks.RITUAL_BOWL
             ).build(null).setRegistryName(ResourceLocation(MOD_ID, "ritual_bowl"))
+        )
+    }
+
+    @SubscribeEvent
+    fun registerEntities(event: RegistryEvent.Register<EntityType<*>>) {
+        ModEntities.RITUAL_BAG_ENTITY.setRegistryName(MOD_ID, "ritual_bag_entity")
+
+        event.registry.registerAll(
+            ModEntities.RITUAL_BAG_ENTITY
         )
     }
 

@@ -1,6 +1,6 @@
 package com.reicheltp.celtic_rituals.rituals.bowl
 
-import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.init.ModEntities
 import com.reicheltp.celtic_rituals.utils.clear
 import com.reicheltp.celtic_rituals.utils.isEmpty
 import net.minecraft.entity.player.PlayerEntity
@@ -20,7 +20,7 @@ import net.minecraftforge.items.ItemStackHandler
 /**
  * TileEntity for @see RitualBowlBlock entity.
  */
-class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), IInventory {
+class RitualBowlTile : TileEntity(ModEntities.RITUAL_BOWL_TILE!!), IInventory {
     // The item handler capability keeps
     private val ingredients = LazyOptional.of { ItemStackHandler(5) }
 
