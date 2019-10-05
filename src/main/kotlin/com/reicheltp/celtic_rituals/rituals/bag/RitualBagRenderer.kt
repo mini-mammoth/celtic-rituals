@@ -15,18 +15,26 @@ class RitualBagRenderer : SpriteRenderer<RitualBagEntity> {
         private val LOGGER = LogManager.getLogger()
     }
 
-    constructor(rendererManager: EntityRendererManager) : super(rendererManager, Minecraft.getInstance().itemRenderer)
+    constructor(rendererManager: EntityRendererManager) : super(
+        rendererManager,
+        Minecraft.getInstance().itemRenderer
+    )
 
     override fun getEntityTexture(entity: Entity): ResourceLocation? {
         return ResourceLocation(MOD_ID, "textures/item/ritual_bag.png")
     }
 
     class RitualBagRenderFactory : IRenderFactory<RitualBagEntity> {
-        override fun createRenderFor(manager: EntityRendererManager?): EntityRenderer<in RitualBagEntity>? {
+        override fun createRenderFor(manager: EntityRendererManager?):
+          EntityRenderer<in RitualBagEntity>? {
             try {
                 return RitualBagRenderer(manager!!)
             } catch (e: Exception) {
-                LOGGER.error("{}: Could not create renderer for manager due to: {}", this.javaClass.name, e.message)
+                LOGGER.error(
+                    "{}: Could not create renderer for manager due to: {}",
+                    this.javaClass.name,
+                    e.message
+                )
                 return null
             }
         }

@@ -20,7 +20,8 @@ class ClientProxy : CommonProxy() {
     fun clientSetup(event: FMLClientSetupEvent) {
         ClientRegistry.bindTileEntitySpecialRenderer(
             RitualBowlTile::class.java,
-            RitualBowlRenderer())
+            RitualBowlRenderer()
+        )
 
         RenderingRegistry.registerEntityRenderingHandler<RitualBagEntity>(
             RitualBagEntity::class.java,
