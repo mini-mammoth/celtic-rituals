@@ -20,7 +20,9 @@
       "effect": "celtic_rituals:potion",
       "potion": "minecraft:healing",
       "radius": 5.0,
-      "duration": 120
+      "duration": 120,
+      "particle": "minecraft:heart",
+      "color": 16253176
     },
     {
       "effect": "celtic_rituals:change_weather",
