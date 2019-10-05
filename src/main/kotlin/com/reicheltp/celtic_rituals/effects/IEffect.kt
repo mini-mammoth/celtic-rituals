@@ -12,11 +12,12 @@ import net.minecraftforge.registries.IForgeRegistry
 
 abstract class EffectSerializer<T : IEffect> : ForgeRegistryEntry<EffectSerializer<*>>() {
     companion object {
-        public var REGISTRY: IForgeRegistry<EffectSerializer<*>>? = null
+        var REGISTRY: IForgeRegistry<EffectSerializer<*>>? = null
 
         fun deserialize(element: JsonObject): IEffect {
             val key = ResourceLocation(element.get("effect").asString)
-            val serializer = REGISTRY!!.getValue(key) ?: throw JsonParseException("No effect serializer found for $key")
+            val serializer = REGISTRY!!.getValue(key)
+                ?: throw JsonParseException("No effect serializer found for $key")
 
             return serializer.read(element)
         }

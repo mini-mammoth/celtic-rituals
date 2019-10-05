@@ -56,17 +56,19 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), IInventory {
         return super.getCapability(cap, side)
     }
 
-    override fun getStackInSlot(index: Int): ItemStack = ingredients.map { it.getStackInSlot(index) }.orElse(ItemStack.EMPTY)
+    override fun getStackInSlot(index: Int): ItemStack =
+        ingredients.map { it.getStackInSlot(index) }.orElse(ItemStack.EMPTY)
+
     override fun getSizeInventory(): Int = ingredients.map { it.slots }.orElse(0)
 
     override fun decrStackSize(index: Int, count: Int): ItemStack =
-            ingredients.map { it.extractItem(index, count, false) }.orElse(ItemStack.EMPTY)
+        ingredients.map { it.extractItem(index, count, false) }.orElse(ItemStack.EMPTY)
 
     override fun setInventorySlotContents(index: Int, stack: ItemStack) =
-            ingredients.ifPresent { it.setStackInSlot(index, stack) }
+        ingredients.ifPresent { it.setStackInSlot(index, stack) }
 
     override fun removeStackFromSlot(index: Int): ItemStack =
-            ingredients.map { it.extractItem(index, 1, false) }.orElse(ItemStack.EMPTY)
+        ingredients.map { it.extractItem(index, 1, false) }.orElse(ItemStack.EMPTY)
 
     override fun clear() = ingredients.ifPresent { it.clear() }
 

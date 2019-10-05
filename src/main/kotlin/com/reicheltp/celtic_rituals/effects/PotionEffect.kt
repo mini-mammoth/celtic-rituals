@@ -11,12 +11,13 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 class PotionEffect(
-    private val potion: Potion,
-    private val duration: Int,
-    private val radius: Float
+  private val potion: Potion,
+  private val duration: Int,
+  private val radius: Float
 ) : IEffect {
     override fun apply(world: World, pos: BlockPos, inv: IInventory): Boolean {
-        val entity = AreaEffectCloudEntity(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
+        val entity =
+            AreaEffectCloudEntity(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
 
         entity.duration = duration
         entity.setPotion(potion)

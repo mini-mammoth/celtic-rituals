@@ -22,13 +22,13 @@ import net.minecraft.world.World
 import net.minecraftforge.registries.ForgeRegistryEntry
 
 class BowlRitualRecipe(
-    private val id: ResourceLocation,
-    val ingredients: List<Ingredient>,
-    val result: List<IEffect>,
-    /**
-     * Duration in ticks, this recipe has to burn. Defaults to 60 (3s)
-     */
-    val duration: Int
+  private val id: ResourceLocation,
+  val ingredients: List<Ingredient>,
+  val result: List<IEffect>,
+  /**
+   * Duration in ticks, this recipe has to burn. Defaults to 60 (3s)
+   */
+  val duration: Int
 ) : IRecipe<RitualBowlTile> {
     companion object {
         const val DEFAULT_DURATION = 60
@@ -74,7 +74,8 @@ class BowlRitualRecipe(
         return matches.all { it }
     }
 
-    class Serializer : ForgeRegistryEntry<IRecipeSerializer<*>>(), IRecipeSerializer<BowlRitualRecipe> {
+    class Serializer : ForgeRegistryEntry<IRecipeSerializer<*>>(),
+        IRecipeSerializer<BowlRitualRecipe> {
         init {
             registryName = ResourceLocation(MOD_ID, "bowl_ritual")
         }

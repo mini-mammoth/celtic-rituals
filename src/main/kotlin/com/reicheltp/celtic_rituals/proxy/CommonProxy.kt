@@ -68,7 +68,8 @@ abstract class CommonProxy {
             BowlRitualRecipe.Serializer()
         )
 
-        ModRecipes.BOWL_RITUAL_TYPE = IRecipeType.register<BowlRitualRecipe>("celtic_rituals:bowl_ritual")
+        ModRecipes.BOWL_RITUAL_TYPE =
+            IRecipeType.register<BowlRitualRecipe>("celtic_rituals:bowl_ritual")
     }
 
     @SubscribeEvent

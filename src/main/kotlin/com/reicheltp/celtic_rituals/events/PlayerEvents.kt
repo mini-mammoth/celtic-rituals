@@ -28,20 +28,25 @@ object PlayerEvents {
 
         val bonePos = BlockPos(event.pos.x, event.pos.y + 1, event.pos.z)
 
-        if (heldItemStackInMainHand.item == Items.BONE && BoneStandBlock.isValidUnderground(block)) {
+        if (heldItemStackInMainHand.item == Items.BONE &&
+            BoneStandBlock.isValidUnderground(block)
+        ) {
             val boneStandState = ModBlocks.BONE_STAND!!.defaultState
 
             event.world.setBlockState(
-                    bonePos,
-                    boneStandState.with(BlockStateProperties.FACING, getFacingFromEntity(bonePos, event.player))
+                bonePos,
+                boneStandState.with(
+                    BlockStateProperties.FACING,
+                    getFacingFromEntity(bonePos, event.player)
+                )
             )
             event.world.playSound(
-                    event.player,
-                    event.pos,
-                    SoundEvents.ITEM_SHOVEL_FLATTEN,
-                    SoundCategory.BLOCKS,
-                    1.0f,
-                    1.0f
+                event.player,
+                event.pos,
+                SoundEvents.ITEM_SHOVEL_FLATTEN,
+                SoundCategory.BLOCKS,
+                1.0f,
+                1.0f
             )
         }
     }

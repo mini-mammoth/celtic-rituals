@@ -15,6 +15,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 class ClientProxy : CommonProxy() {
     @SubscribeEvent
     fun clientSetup(event: FMLClientSetupEvent) {
-        ClientRegistry.bindTileEntitySpecialRenderer(RitualBowlTile::class.java, RitualBowlRenderer())
+        ClientRegistry.bindTileEntitySpecialRenderer(
+            RitualBowlTile::class.java,
+            RitualBowlRenderer()
+        )
     }
 }

@@ -14,8 +14,15 @@ import net.minecraftforge.api.distmarker.OnlyIn
  * Renders containing items on top of the RitualBowlBlock.
  */
 @OnlyIn(Dist.CLIENT)
-class RitualBowlRenderer() : TileEntityRenderer<RitualBowlTile>() {
-    override fun render(tile: RitualBowlTile, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int) {
+class RitualBowlRenderer : TileEntityRenderer<RitualBowlTile>() {
+    override fun render(
+      tile: RitualBowlTile,
+      x: Double,
+      y: Double,
+      z: Double,
+      partialTicks: Float,
+      destroyStage: Int
+    ) {
         if (tile.blockState.get(BlockStateProperties.ENABLED)) {
             // No need to render items when bowl is ignited
             return
