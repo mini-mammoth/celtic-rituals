@@ -10,6 +10,7 @@ import com.reicheltp.celtic_rituals.effects.IEffect
 import com.reicheltp.celtic_rituals.effects.readEffectList
 import com.reicheltp.celtic_rituals.effects.writeEffectList
 import com.reicheltp.celtic_rituals.init.ModRecipes
+import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.item.crafting.IRecipeSerializer
@@ -18,6 +19,7 @@ import net.minecraft.item.crafting.Ingredient
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.registries.ForgeRegistryEntry
 
@@ -50,11 +52,15 @@ class BowlRitualRecipe(
         // Remove all ingredients
         tile.clear()
 
-        for (r in result) {
-            r.apply(tile.world!!, tile.pos, tile)
-        }
+        applyEffects(tile.world!!, tile.pos, tile)
 
         return ItemStack.EMPTY
+    }
+
+    fun applyEffects(world: World, pos: BlockPos, inv: IInventory) {
+        for (r in result) {
+            r.apply(world, pos, inv)
+        }
     }
 
     override fun matches(inv: RitualBowlTile, worldIn: World): Boolean {
