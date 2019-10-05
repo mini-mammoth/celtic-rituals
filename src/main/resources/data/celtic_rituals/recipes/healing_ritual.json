@@ -8,7 +8,13 @@
       "item": "minecraft:gold_nugget"
     }
   ],
-  "result": {
-    "item": "minecraft:glowstone_dust"
-  }
+  "result": [
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "effect": "celtic_rituals:spawn_entity",
+      "entity": "minecraft:cow"
+    }
+  ]
 }

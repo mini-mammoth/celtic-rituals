@@ -14,7 +14,6 @@ import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.inventory.EquipmentSlotType
-import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
@@ -42,11 +41,11 @@ import net.minecraft.world.World
  * The player puts all his items in a ritual bowl and burn it afterward.
  */
 class RitualBowlBlock : Block(
-        Properties.create(Material.WOOD)
-                .variableOpacity()
-                .hardnessAndResistance(1.0f)
-                .lightValue(14)
-                .sound(SoundType.WOOD)
+    Properties.create(Material.WOOD)
+        .variableOpacity()
+        .hardnessAndResistance(1.0f)
+        .lightValue(14)
+        .sound(SoundType.WOOD)
 ) {
     companion object {
         private val SHAPE = makeCuboidShape(.0, .0, .0, 16.0, 8.0, 16.0)
@@ -58,7 +57,12 @@ class RitualBowlBlock : Block(
         defaultState = stateContainer.baseState.with(BlockStateProperties.ENABLED, false)
     }
 
-    override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape {
+    override fun getShape(
+        state: BlockState,
+        worldIn: IBlockReader,
+        pos: BlockPos,
+        context: ISelectionContext
+    ): VoxelShape {
         return SHAPE
     }
 
@@ -99,7 +103,14 @@ class RitualBowlBlock : Block(
         }
     }
 
-    override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): Boolean {
+    override fun onBlockActivated(
+        state: BlockState,
+        worldIn: World,
+        pos: BlockPos,
+        player: PlayerEntity,
+        handIn: Hand,
+        hit: BlockRayTraceResult
+    ): Boolean {
         if (handIn != Hand.MAIN_HAND) {
             return false
         }
@@ -113,7 +124,14 @@ class RitualBowlBlock : Block(
 
         // Extinguishes an ignited bowl, but removes all items.
         if (player.heldItemMainhand.item == Items.WATER_BUCKET) {
-            worldIn.playSound(player, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5f, 2.6f + (random.nextFloat() - random.nextFloat()) * 0.8f)
+            worldIn.playSound(
+                player,
+                pos,
+                SoundEvents.BLOCK_FIRE_EXTINGUISH,
+                SoundCategory.BLOCKS,
+                0.5f,
+                2.6f + (random.nextFloat() - random.nextFloat()) * 0.8f
+            )
 
             if (inProgress) {
                 worldIn.setBlockState(pos, state.with(BlockStateProperties.ENABLED, false))
@@ -129,13 +147,19 @@ class RitualBowlBlock : Block(
         // Ignites the bowl
         if (player.heldItemMainhand.item == Items.FLINT_AND_STEEL) {
             // TODO: This will ignite the bowl and start a ritual
-            worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0f, random.nextFloat() * 0.4f + 0.8f)
+            worldIn.playSound(
+                player,
+                pos,
+                SoundEvents.ITEM_FLINTANDSTEEL_USE,
+                SoundCategory.BLOCKS,
+                1.0f,
+                random.nextFloat() * 0.4f + 0.8f
+            )
 
             if (player is ServerPlayerEntity) {
                 CriteriaTriggers.PLACED_BLOCK.trigger(player, pos, player.heldItemMainhand)
                 player.heldItemMainhand.damageItem(1, player, { it.sendBreakAnimation(handIn) })
             }
-
 
             if (!inProgress && !worldIn.isRemote) {
                 val recipe = worldIn.server!!.recipeManager.getRecipe(ModRecipes.BOWL_RITUAL_TYPE!!, tile, worldIn)
@@ -193,18 +217,24 @@ class RitualBowlBlock : Block(
 
         if (!world.isRemote) {
             val tile = world.getTileEntity(pos) as RitualBowlTile
-            val recipe = world.server!!.recipeManager.getRecipe<IInventory, BowlRitualRecipe>(ModRecipes.BOWL_RITUAL_TYPE!!, tile, world)
+            val recipe = world.server!!.recipeManager.getRecipe(ModRecipes.BOWL_RITUAL_TYPE!!, tile, world)
 
             if (!recipe.isPresent) {
                 // Fail
-                world.createExplosion(null, DamageSource.MAGIC, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 2.0f, false, Explosion.Mode.BREAK)
+                world.createExplosion(
+                    null,
+                    DamageSource.MAGIC,
+                    pos.x.toDouble(),
+                    pos.y.toDouble(),
+                    pos.z.toDouble(),
+                    2.0f,
+                    false,
+                    Explosion.Mode.BREAK
+                )
                 return
             }
 
-            val result = recipe.get().getCraftingResult(tile)
-
-            tile.clear()
-            tile.setInventorySlotContents(0, result)
+            recipe.get().getCraftingResult(tile)
         }
     }
 }
