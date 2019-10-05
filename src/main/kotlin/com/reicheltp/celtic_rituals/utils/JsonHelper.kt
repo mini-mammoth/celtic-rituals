@@ -19,7 +19,7 @@ val JsonElement.asColor: Int
 
         return when {
             value.isNumber -> value.asInt
-            value.isString -> parseInt(value.asString, 16)
+            value.isString -> parseInt(value.asString.replace("#", ""), 16)
             else -> throw JsonParseException("color should be number or string")
         }
     }
