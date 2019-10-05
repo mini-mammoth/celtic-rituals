@@ -1,13 +1,13 @@
 package com.reicheltp.celtic_rituals.items
 
 import com.reicheltp.celtic_rituals.MOD_ID
+import com.reicheltp.celtic_rituals.init.ModItemGroups
 import com.reicheltp.celtic_rituals.utils.Grow
 import com.reicheltp.celtic_rituals.utils.Spawn
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.ChickenEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemTier
 import net.minecraft.item.SwordItem
@@ -24,7 +24,7 @@ import org.apache.logging.log4j.LogManager
 class Knife : SwordItem(
     ItemTier.WOOD, 1, 1f, Properties()
         .setNoRepair()
-        .group(ItemGroup.MISC)
+        .group(ModItemGroups.CELTICRITUALSITEMGROUP)
 ) {
     companion object {
         private val LOGGER = LogManager.getLogger()

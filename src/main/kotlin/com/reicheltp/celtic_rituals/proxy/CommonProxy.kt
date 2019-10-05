@@ -8,8 +8,10 @@ import com.reicheltp.celtic_rituals.effects.EffectSerializer
 import com.reicheltp.celtic_rituals.effects.PotionEffect
 import com.reicheltp.celtic_rituals.effects.SpawnEntityEffect
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.init.ModItemGroups
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.items.Knife
+import com.reicheltp.celtic_rituals.items.SigilItem
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagEntity
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
 import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
@@ -72,13 +74,17 @@ abstract class CommonProxy {
     fun registerItems(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(
             Knife(),
-            BlockItem(ModBlocks.RITUAL_BOWL!!, Item.Properties().maxStackSize(1)).setRegistryName(
+            BlockItem(
+                ModBlocks.RITUAL_BOWL!!,
+                Item.Properties().maxStackSize(1).group(ModItemGroups.CELTICRITUALSITEMGROUP)
+            ).setRegistryName(
                 ResourceLocation(
                     MOD_ID,
                     "ritual_bowl"
                 )
             ),
-            RitualBagItem()
+            RitualBagItem(),
+            SigilItem()
         )
     }
 
