@@ -21,6 +21,7 @@ The json file has to be structured the following way:
 | type | celtic_rituals:bowl_ritual` |
 | ingredients | Array of [Ingredient][ingredient-wiki] (max 5) |
 | duration | **(optional)** Ticks the bowl will burn. (Defaults to 60 / 3s) |
-| result | The resulting item | 
+| result | Effect or List of [Effects][effects] | 
 
 [ingredient-wiki]: https://minecraft.gamepedia.com/Recipe
+[effects]: effects.md

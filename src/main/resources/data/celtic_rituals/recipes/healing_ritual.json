@@ -21,6 +21,10 @@
       "potion": "minecraft:healing",
       "radius": 5.0,
       "duration": 120
+    },
+    {
+      "effect": "celtic_rituals:change_weather",
+      "weather": "clear"
     }
   ]
 }
