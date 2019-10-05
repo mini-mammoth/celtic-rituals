@@ -1,2 +1,2 @@
 # https://github.com/shyiko/jabba
-jdk: adopt@1.8.0-222
+jdk: "*@>=1.8.101 <1.10.x"
