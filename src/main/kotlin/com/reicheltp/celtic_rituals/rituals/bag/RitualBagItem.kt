@@ -29,11 +29,17 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAUL
     companion object {
         private const val EMPTY_COLOR = 0x70472D
 
+        /**
+         * Picks a tint color from contained recipe.
+         */
         fun getColor(item: ItemStack): Int {
-            // TODO: Pick color for ritual bag based on ritual
-            val hasRecipe = item.hasTag() && item.tag?.get("recipe") !== null
+            val recipe = getRecipe(item)
+            if (!recipe.isPresent) {
+                return EMPTY_COLOR
+            }
 
-            return if (hasRecipe) 0xF800F8 else EMPTY_COLOR
+            val color = recipe.get().color
+            return if (color > 0) color else 0xF800F8
         }
 
         fun getRecipe(item: ItemStack): Optional<BowlRitualRecipe> {

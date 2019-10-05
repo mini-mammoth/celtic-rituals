@@ -1,5 +1,6 @@
 {
   "type": "celtic_rituals:bowl_ritual",
+  "color": "00F800",
   "ingredients": [
     {
       "item": "minecraft:redstone"

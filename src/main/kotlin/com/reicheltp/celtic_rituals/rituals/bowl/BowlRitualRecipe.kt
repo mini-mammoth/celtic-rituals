@@ -10,6 +10,7 @@ import com.reicheltp.celtic_rituals.effects.IEffect
 import com.reicheltp.celtic_rituals.effects.readEffectList
 import com.reicheltp.celtic_rituals.effects.writeEffectList
 import com.reicheltp.celtic_rituals.init.ModRecipes
+import com.reicheltp.celtic_rituals.utils.asColor
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
@@ -30,7 +31,8 @@ class BowlRitualRecipe(
   /**
    * Duration in ticks, this recipe has to burn. Defaults to 60 (3s)
    */
-  val duration: Int
+  val duration: Int,
+  val color: Int
 ) : IRecipe<RitualBowlTile> {
     companion object {
         const val DEFAULT_DURATION = 60
@@ -91,8 +93,9 @@ class BowlRitualRecipe(
             val result = parseResults(json.get("result"))
 
             val duration = json.get("duration")?.asInt ?: DEFAULT_DURATION
+            val color = json.get("color")?.asColor ?: -1
 
-            return BowlRitualRecipe(recipeId, ingredients, result, duration)
+            return BowlRitualRecipe(recipeId, ingredients, result, duration, color)
         }
 
         override fun write(buffer: PacketBuffer, recipe: BowlRitualRecipe) {
@@ -101,6 +104,7 @@ class BowlRitualRecipe(
 
             buffer.writeEffectList(recipe.result)
             buffer.writeInt(recipe.duration)
+            buffer.writeInt(recipe.color)
         }
 
         override fun read(recipeId: ResourceLocation, buffer: PacketBuffer): BowlRitualRecipe? {
@@ -112,8 +116,9 @@ class BowlRitualRecipe(
 
             val result = buffer.readEffectList()
             val duration = buffer.readInt()
+            val color = buffer.readInt()
 
-            return BowlRitualRecipe(recipeId, ingredients, result, duration)
+            return BowlRitualRecipe(recipeId, ingredients, result, duration, color)
         }
 
         private fun parseResults(element: JsonElement): List<IEffect> {
