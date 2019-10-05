@@ -4,6 +4,7 @@ import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.blocks.BoneStandBlock
 import com.reicheltp.celtic_rituals.effects.CraftItemEffect
 import com.reicheltp.celtic_rituals.effects.EffectSerializer
+import com.reicheltp.celtic_rituals.effects.PotionEffect
 import com.reicheltp.celtic_rituals.effects.SpawnEntityEffect
 import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModRecipes
@@ -82,6 +83,7 @@ abstract class CommonProxy {
     fun registerEffects(event: RegistryEvent.Register<EffectSerializer<*>>) {
         event.registry.registerAll(
             CraftItemEffect.SERIALIZER,
+            PotionEffect.SERIALIZER,
             SpawnEntityEffect.SERIALIZER
         )
     }
