@@ -2,13 +2,13 @@ package com.reicheltp.celtic_rituals.rituals.bag
 
 import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.init.ModItemGroups
 import com.reicheltp.celtic_rituals.init.ModItems
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import java.util.Optional
 import net.minecraft.client.Minecraft
-import com.reicheltp.celtic_rituals.init.ModItemGroups
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.Item
