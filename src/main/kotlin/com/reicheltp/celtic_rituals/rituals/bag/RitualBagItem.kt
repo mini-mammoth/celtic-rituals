@@ -2,6 +2,7 @@ package com.reicheltp.celtic_rituals.rituals.bag
 
 import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.init.ModItemGroups
 import com.reicheltp.celtic_rituals.init.ModItems
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
@@ -11,7 +12,6 @@ import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.Item
-import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemUseContext
 import net.minecraft.nbt.StringNBT
@@ -25,7 +25,7 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvents
 import net.minecraft.world.World
 
-class RitualBagItem : Item(Properties().setNoRepair().group(ItemGroup.MISC)) {
+class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAULT)) {
     companion object {
         private const val EMPTY_COLOR = 0x70472D
 
