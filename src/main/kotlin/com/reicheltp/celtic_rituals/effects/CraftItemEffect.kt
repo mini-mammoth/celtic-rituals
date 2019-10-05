@@ -11,7 +11,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.crafting.CraftingHelper
 
 class CraftItemEffect(
-    private val item: ItemStack
+  private val item: ItemStack
 ) : IEffect {
     override val serializer: EffectSerializer<*> = SERIALIZER
 

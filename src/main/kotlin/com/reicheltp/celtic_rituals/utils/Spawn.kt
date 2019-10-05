@@ -12,7 +12,15 @@ object Spawn {
     /**
      * Spawns the specified [numberOfEntites] of [entityType] randomly around the [blockPos].
      */
-    fun <T : Entity> spawnEntityAroundPosition(world: World, entityType: EntityType<T>, playerIn: PlayerEntity?, blockPos: BlockPos, minDistance: Int, maxDistance: Int, numberOfEntites: Int = 1): Boolean {
+    fun <T : Entity> spawnEntityAroundPosition(
+      world: World,
+      entityType: EntityType<T>,
+      playerIn: PlayerEntity?,
+      blockPos: BlockPos,
+      minDistance: Int,
+      maxDistance: Int,
+      numberOfEntites: Int = 1
+    ): Boolean {
         require(minDistance < maxDistance) { "maxDistance must be greater than minDistance" }
         require(numberOfEntites > 0) { "numberOfEntites must be greater than 0" }
         val r = world.random
@@ -32,19 +40,35 @@ object Spawn {
             // update y position such that mob spawns on the ground
             if (blockState.getCollisionShape(world, mobPos).isEmpty()) {
                 var updatedBlockPos = mobPos.offset(Direction.DOWN)
-                while (world.getBlockState(updatedBlockPos).getCollisionShape(world, updatedBlockPos).isEmpty) {
+                while (world.getBlockState(updatedBlockPos).getCollisionShape(
+                        world,
+                        updatedBlockPos
+                    ).isEmpty
+                ) {
                     mobPos = updatedBlockPos
                     updatedBlockPos = mobPos.offset(Direction.DOWN)
                 }
             } else {
                 var updatedBlockPos = mobPos.offset(Direction.UP)
-                while (!world.getBlockState(updatedBlockPos).getCollisionShape(world, updatedBlockPos).isEmpty)
+                while (!world.getBlockState(updatedBlockPos).getCollisionShape(
+                        world,
+                        updatedBlockPos
+                    ).isEmpty
+                )
                     updatedBlockPos = updatedBlockPos.offset(Direction.UP)
 
                 mobPos = updatedBlockPos
             }
 
-            success = success && entityType.spawn(world, null, playerIn, mobPos, SpawnReason.MOB_SUMMONED, true, false) != null
+            success = success && entityType.spawn(
+                world,
+                null,
+                playerIn,
+                mobPos,
+                SpawnReason.MOB_SUMMONED,
+                true,
+                false
+            ) != null
         }
 
         return success

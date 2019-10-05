@@ -21,9 +21,11 @@ import org.apache.logging.log4j.LogManager
  *
  * Right-click a mob to sacrifice it.
  */
-class Knife : SwordItem(ItemTier.WOOD, 1, 1f, Properties()
+class Knife : SwordItem(
+    ItemTier.WOOD, 1, 1f, Properties()
         .setNoRepair()
-        .group(ItemGroup.MISC)) {
+        .group(ItemGroup.MISC)
+) {
     companion object {
         private val LOGGER = LogManager.getLogger()
     }
@@ -32,14 +34,27 @@ class Knife : SwordItem(ItemTier.WOOD, 1, 1f, Properties()
         registryName = ResourceLocation(MOD_ID, "knife")
     }
 
-    override fun itemInteractionForEntity(stack: ItemStack, playerIn: PlayerEntity, target: LivingEntity, hand: Hand): Boolean {
+    override fun itemInteractionForEntity(
+      stack: ItemStack,
+      playerIn: PlayerEntity,
+      target: LivingEntity,
+      hand: Hand
+    ): Boolean {
         val validTarget = hand == Hand.MAIN_HAND && target is ChickenEntity
 
         if (validTarget) {
             target.attackEntityFrom(DamageSource.MAGIC, target.maxHealth)
             Grow.aroundTarget(target.world, target.position, 3)
 
-            Spawn.spawnEntityAroundPosition(target.world, EntityType.ZOMBIE, playerIn, playerIn.position, 3, 7, 5)
+            Spawn.spawnEntityAroundPosition(
+                target.world,
+                EntityType.ZOMBIE,
+                playerIn,
+                playerIn.position,
+                3,
+                7,
+                5
+            )
 
             return true
         }

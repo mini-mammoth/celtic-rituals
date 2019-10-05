@@ -33,11 +33,23 @@ class BoneStandBlock : Block(Properties.create(Material.WOOD).hardnessAndResista
         }
     }
 
-    override fun getShape(state: BlockState, worldIn: IBlockReader, pos: BlockPos, context: ISelectionContext): VoxelShape {
+    override fun getShape(
+      state: BlockState,
+      worldIn: IBlockReader,
+      pos: BlockPos,
+      context: ISelectionContext
+    ): VoxelShape {
         return SHAPE
     }
 
-    override fun neighborChanged(state: BlockState, worldIn: World, pos: BlockPos, blockIn: Block, fromPos: BlockPos, p_220069_6_: Boolean) {
+    override fun neighborChanged(
+      state: BlockState,
+      worldIn: World,
+      pos: BlockPos,
+      blockIn: Block,
+      fromPos: BlockPos,
+      p_220069_6_: Boolean
+    ) {
         val blockBeneath = worldIn.getBlockState(fromPos).block
 
         // if block below gets changed to something else than dirt or grass drop a bone and remove BoneStandBlock
@@ -46,7 +58,13 @@ class BoneStandBlock : Block(Properties.create(Material.WOOD).hardnessAndResista
         }
     }
 
-    override fun onReplaced(state: BlockState, worldIn: World, pos: BlockPos, newState: BlockState, isMoving: Boolean) {
+    override fun onReplaced(
+      state: BlockState,
+      worldIn: World,
+      pos: BlockPos,
+      newState: BlockState,
+      isMoving: Boolean
+    ) {
         if (state.block !== newState.block && !worldIn.isRemote) {
             spawnAsEntity(worldIn, pos, ItemStack(Items.BONE, 1))
         }

@@ -19,8 +19,8 @@ object MyMod {
      * Follows an approach from: https://mcforge.readthedocs.io/en/latest/concepts/sides/#sidedproxy
      */
     private val proxy: CommonProxy = DistExecutor.runForDist<CommonProxy>(
-            { Supplier { ClientProxy() } },
-            { Supplier { ServerProxy() } }
+        { Supplier { ClientProxy() } },
+        { Supplier { ServerProxy() } }
     )
 
     init {

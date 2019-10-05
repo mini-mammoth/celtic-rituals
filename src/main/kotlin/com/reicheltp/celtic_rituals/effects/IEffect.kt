@@ -16,7 +16,8 @@ abstract class EffectSerializer<T : IEffect> : ForgeRegistryEntry<EffectSerializ
 
         fun deserialize(element: JsonObject): IEffect {
             val key = ResourceLocation(element.get("effect").asString)
-            val serializer = REGISTRY!!.getValue(key) ?: throw JsonParseException("No effect serializer found for $key")
+            val serializer = REGISTRY!!.getValue(key)
+                ?: throw JsonParseException("No effect serializer found for $key")
 
             return serializer.read(element)
         }

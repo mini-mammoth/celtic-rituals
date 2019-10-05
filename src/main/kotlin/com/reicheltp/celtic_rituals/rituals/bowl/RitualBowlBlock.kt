@@ -58,10 +58,10 @@ class RitualBowlBlock : Block(
     }
 
     override fun getShape(
-        state: BlockState,
-        worldIn: IBlockReader,
-        pos: BlockPos,
-        context: ISelectionContext
+      state: BlockState,
+      worldIn: IBlockReader,
+      pos: BlockPos,
+      context: ISelectionContext
     ): VoxelShape {
         return SHAPE
     }
@@ -70,13 +70,22 @@ class RitualBowlBlock : Block(
         return BlockRenderLayer.CUTOUT
     }
 
-    override fun getLightValue(state: BlockState?, world: IEnviromentBlockReader?, pos: BlockPos?): Int {
-        return if (state!!.get(BlockStateProperties.ENABLED)) super.getLightValue(state, world, pos) else 0
+    override fun getLightValue(
+      state: BlockState?,
+      world: IEnviromentBlockReader?,
+      pos: BlockPos?
+    ): Int {
+        return if (state!!.get(BlockStateProperties.ENABLED)) super.getLightValue(
+            state,
+            world,
+            pos
+        ) else 0
     }
 
     override fun hasTileEntity(state: BlockState?): Boolean = true
 
-    override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity? = RitualBowlTile()
+    override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity? =
+        RitualBowlTile()
 
     override fun fillStateContainer(builder: StateContainer.Builder<Block, BlockState>) {
         builder.add(BlockStateProperties.ENABLED)
@@ -87,7 +96,13 @@ class RitualBowlBlock : Block(
      *
      * Borrowed from AbstractFurnaceBlock
      */
-    override fun onReplaced(state: BlockState, worldIn: World, pos: BlockPos, newState: BlockState, isMoving: Boolean) {
+    override fun onReplaced(
+      state: BlockState,
+      worldIn: World,
+      pos: BlockPos,
+      newState: BlockState,
+      isMoving: Boolean
+    ) {
         if (state.block !== newState.block) {
             if (state.get(BlockStateProperties.ENABLED)) {
                 // Destroying a running ritual will loose all items
@@ -104,12 +119,12 @@ class RitualBowlBlock : Block(
     }
 
     override fun onBlockActivated(
-        state: BlockState,
-        worldIn: World,
-        pos: BlockPos,
-        player: PlayerEntity,
-        handIn: Hand,
-        hit: BlockRayTraceResult
+      state: BlockState,
+      worldIn: World,
+      pos: BlockPos,
+      player: PlayerEntity,
+      handIn: Hand,
+      hit: BlockRayTraceResult
     ): Boolean {
         if (handIn != Hand.MAIN_HAND) {
             return false
@@ -162,7 +177,11 @@ class RitualBowlBlock : Block(
             }
 
             if (!inProgress && !worldIn.isRemote) {
-                val recipe = worldIn.server!!.recipeManager.getRecipe(ModRecipes.BOWL_RITUAL_TYPE!!, tile, worldIn)
+                val recipe = worldIn.server!!.recipeManager.getRecipe(
+                    ModRecipes.BOWL_RITUAL_TYPE!!,
+                    tile,
+                    worldIn
+                )
 
                 worldIn.setBlockState(pos, state.with(BlockStateProperties.ENABLED, true))
                 worldIn.pendingBlockTicks.scheduleTick(
@@ -183,7 +202,13 @@ class RitualBowlBlock : Block(
                     continue
                 }
 
-                InventoryHelper.spawnItemStack(worldIn, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), stack)
+                InventoryHelper.spawnItemStack(
+                    worldIn,
+                    pos.x.toDouble(),
+                    pos.y.toDouble(),
+                    pos.z.toDouble(),
+                    stack
+                )
             }
         }
 
@@ -217,7 +242,8 @@ class RitualBowlBlock : Block(
 
         if (!world.isRemote) {
             val tile = world.getTileEntity(pos) as RitualBowlTile
-            val recipe = world.server!!.recipeManager.getRecipe(ModRecipes.BOWL_RITUAL_TYPE!!, tile, world)
+            val recipe =
+                world.server!!.recipeManager.getRecipe(ModRecipes.BOWL_RITUAL_TYPE!!, tile, world)
 
             if (!recipe.isPresent) {
                 // Fail

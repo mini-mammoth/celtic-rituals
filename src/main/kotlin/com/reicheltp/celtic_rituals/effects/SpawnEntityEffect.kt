@@ -11,14 +11,22 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 class SpawnEntityEffect(
-    private val type: EntityType<*>,
-    private val minDistance: Int,
-    private val maxDistance: Int,
-    private val count: Int
+  private val type: EntityType<*>,
+  private val minDistance: Int,
+  private val maxDistance: Int,
+  private val count: Int
 ) : IEffect {
 
     override fun apply(world: World, pos: BlockPos, inv: IInventory): Boolean {
-        return Spawn.spawnEntityAroundPosition(world, type, null, pos, minDistance, maxDistance, count)
+        return Spawn.spawnEntityAroundPosition(
+            world,
+            type,
+            null,
+            pos,
+            minDistance,
+            maxDistance,
+            count
+        )
     }
 
     override val serializer: EffectSerializer<*> = SERIALIZER
