@@ -8,7 +8,6 @@ import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlRenderer
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.color.IItemColor
-import net.minecraft.item.ItemStack
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -33,12 +32,10 @@ class ClientProxy : CommonProxy() {
             RitualBagRenderer.RitualBagRenderFactory()
         )
 
-        Minecraft.getInstance().itemColors.register(IItemColor { item: ItemStack, layer: Int ->
-            if (layer == 0) {
-                -1
-            } else {
-                RitualBagItem.getColor(item)
-            }
-        }, ModItems.RITUAL_BAG)
+        // See: https://mcforge.readthedocs.io/en/1.13.x/models/color/
+        Minecraft.getInstance().itemColors.register(
+            IItemColor { item, layer -> if (layer == 0) -1 else RitualBagItem.getColor(item) },
+            ModItems.RITUAL_BAG
+        )
     }
 }
