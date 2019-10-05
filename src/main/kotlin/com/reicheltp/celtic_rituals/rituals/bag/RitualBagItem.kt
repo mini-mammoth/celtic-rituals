@@ -104,7 +104,7 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAUL
     override fun onItemUse(context: ItemUseContext): ActionResultType {
         if (getRecipe(context.item).isPresent) {
             // You can only fill empty bags
-            return ActionResultType.FAIL
+            return ActionResultType.PASS
         }
 
         val state = context.world.getBlockState(context.pos)
