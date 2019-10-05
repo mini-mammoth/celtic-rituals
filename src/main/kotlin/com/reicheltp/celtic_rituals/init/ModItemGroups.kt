@@ -4,6 +4,6 @@ import com.reicheltp.celtic_rituals.itemgroups.CelticRitualsItemGroup
 import java.util.function.Supplier
 
 object ModItemGroups {
-    var CELTICRITUALSITEMGROUP =
+    var DEFAULT =
         CelticRitualsItemGroup("default", Supplier { ModItems.RITUAL_SIGIL!! })
 }

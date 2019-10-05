@@ -76,7 +76,7 @@ abstract class CommonProxy {
             Knife(),
             BlockItem(
                 ModBlocks.RITUAL_BOWL!!,
-                Item.Properties().maxStackSize(1).group(ModItemGroups.CELTICRITUALSITEMGROUP)
+                Item.Properties().maxStackSize(1).group(ModItemGroups.DEFAULT)
             ).setRegistryName(
                 ResourceLocation(
                     MOD_ID,

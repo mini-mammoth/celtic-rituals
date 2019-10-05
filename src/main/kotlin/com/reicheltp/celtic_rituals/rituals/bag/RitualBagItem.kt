@@ -25,7 +25,7 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvents
 import net.minecraft.world.World
 
-class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.CELTICRITUALSITEMGROUP)) {
+class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAULT)) {
     companion object {
         private const val EMPTY_COLOR = 0x70472D
 

@@ -24,7 +24,7 @@ import org.apache.logging.log4j.LogManager
 class Knife : SwordItem(
     ItemTier.WOOD, 1, 1f, Properties()
         .setNoRepair()
-        .group(ModItemGroups.CELTICRITUALSITEMGROUP)
+        .group(ModItemGroups.DEFAULT)
 ) {
     companion object {
         private val LOGGER = LogManager.getLogger()
