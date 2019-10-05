@@ -160,4 +160,17 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAUL
 
         return 16
     }
+
+    /**
+     * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
+     * different names based on their damage or NBT.
+     */
+    override fun getTranslationKey(item: ItemStack): String {
+        if (item.tag?.contains("recipe") != true) {
+            return this.translationKey
+        }
+
+        val name = ResourceLocation(item.tag!!.getString("recipe"))
+        return this.translationKey + ".ritual." + name.path
+    }
 }
