@@ -38,7 +38,7 @@ object Spawn {
             val blockState = world.getBlockState(mobPos)
 
             // update y position such that mob spawns on the ground
-            if (blockState.getCollisionShape(world, mobPos).isEmpty()) {
+            if (blockState.getCollisionShape(world, mobPos).isEmpty) {
                 var updatedBlockPos = mobPos.offset(Direction.DOWN)
                 while (world.getBlockState(updatedBlockPos).getCollisionShape(
                         world,

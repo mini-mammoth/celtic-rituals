@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
  * Renders containing items on top of the RitualBowlBlock.
  */
 @OnlyIn(Dist.CLIENT)
-class RitualBowlRenderer() : TileEntityRenderer<RitualBowlTile>() {
+class RitualBowlRenderer : TileEntityRenderer<RitualBowlTile>() {
     override fun render(
       tile: RitualBowlTile,
       x: Double,
