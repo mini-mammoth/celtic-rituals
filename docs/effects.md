@@ -37,6 +37,8 @@ Creates a new `AreaEffectCloud` originating at the bowl.
 | potion | Name of the potion. E.g. `minecraft:healing` |
 | duration | **(optional)** Time in ticks the area is effected. Defaults to 60 |
 | radius | **(optional)** Radius, which is effected. Defaults to 3.0 |
+| particle | **(optional)** Name of particle data. Defaults to `minecraft:entity_effect` |
+| color | **(optional)** Color of the cloud. Either number or hex string. Defaults to 0 |
 
 
 
