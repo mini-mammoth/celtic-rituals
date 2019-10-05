@@ -238,6 +238,10 @@ class RitualBowlBlock : Block(
     }
 
     override fun tick(state: BlockState, world: World, pos: BlockPos, random: Random) {
+        if (!state.get(BlockStateProperties.ENABLED)) {
+            return
+        }
+
         world.setBlockState(pos, state.with(BlockStateProperties.ENABLED, false))
 
         if (!world.isRemote) {
