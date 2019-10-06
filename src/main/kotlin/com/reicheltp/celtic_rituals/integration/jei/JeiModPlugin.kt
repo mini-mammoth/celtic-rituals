@@ -36,6 +36,11 @@ class JeiModPlugin : IModPlugin {
                 stack
             )
         }
+
+        // One heart for each entity
+        registration.registerSubtypeInterpreter(ModItems.HEART!!) { stack ->
+            stack.orCreateTag.getString("Entity")
+        }
     }
 
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration) {

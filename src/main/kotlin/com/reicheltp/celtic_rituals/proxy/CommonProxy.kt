@@ -17,8 +17,11 @@ import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
 import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlBlock
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
+import com.reicheltp.celtic_rituals.rituals.sacrifice.HeartBreakerEnchantment
+import com.reicheltp.celtic_rituals.rituals.sacrifice.HeartItem
 import java.util.function.Supplier
 import net.minecraft.block.Block
+import net.minecraft.enchantment.Enchantment
 import net.minecraft.entity.EntityClassification
 import net.minecraft.entity.EntityType
 import net.minecraft.item.BlockItem
@@ -71,8 +74,16 @@ abstract class CommonProxy {
     }
 
     @SubscribeEvent
+    fun registerEnchantments(event: RegistryEvent.Register<Enchantment>) {
+        event.registry.registerAll(
+            HeartBreakerEnchantment()
+        )
+    }
+
+    @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(
+            HeartItem(),
             Knife(),
             BlockItem(
                 ModBlocks.RITUAL_BOWL!!,

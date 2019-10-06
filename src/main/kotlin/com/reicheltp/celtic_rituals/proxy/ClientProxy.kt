@@ -6,6 +6,7 @@ import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagRenderer
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlRenderer
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
+import com.reicheltp.celtic_rituals.rituals.sacrifice.HeartItem
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -36,6 +37,11 @@ class ClientProxy : CommonProxy() {
         Minecraft.getInstance().itemColors.register(
             IItemColor { item, layer -> if (layer == 0) -1 else RitualBagItem.getColor(item) },
             ModItems.RITUAL_BAG
+        )
+
+        Minecraft.getInstance().itemColors.register(
+            IItemColor { i, l -> HeartItem.getColor(i, l) },
+            ModItems.HEART
         )
     }
 }
