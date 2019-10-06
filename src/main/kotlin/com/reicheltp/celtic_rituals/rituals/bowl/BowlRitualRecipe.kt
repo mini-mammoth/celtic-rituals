@@ -24,6 +24,7 @@ import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.common.crafting.CraftingHelper
 import net.minecraftforge.registries.ForgeRegistryEntry
 
 class BowlRitualRecipe(
@@ -96,7 +97,8 @@ class BowlRitualRecipe(
         }
 
         override fun read(recipeId: ResourceLocation, json: JsonObject): BowlRitualRecipe {
-            val ingredients = json.getAsJsonArray("ingredients").map { Ingredient.deserialize(it) }
+            val ingredients = json.getAsJsonArray("ingredients")
+                .map { CraftingHelper.getIngredient(it) }
             val result = parseResults(json.get("result"))
 
             val duration = json.get("duration")?.asInt ?: DEFAULT_DURATION
