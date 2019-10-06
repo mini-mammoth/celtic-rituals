@@ -14,6 +14,8 @@ import com.reicheltp.celtic_rituals.ingredients.mistletoe.MistletoeLeavesBlock
 import com.reicheltp.celtic_rituals.ingredients.mistletoe.addToForestBiomes
 import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModFeatures
+import com.reicheltp.celtic_rituals.entities.WraithEntity
+import com.reicheltp.celtic_rituals.init.ModEntities
 import com.reicheltp.celtic_rituals.init.ModItemGroups
 import com.reicheltp.celtic_rituals.init.ModPacketHandler
 import com.reicheltp.celtic_rituals.init.ModRecipes
@@ -34,6 +36,7 @@ import net.minecraft.entity.EntityClassification
 import net.minecraft.entity.EntityType
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
+import net.minecraft.item.SpawnEggItem
 import net.minecraft.item.crafting.IRecipeSerializer
 import net.minecraft.item.crafting.IRecipeType
 import net.minecraft.tileentity.TileEntityType
@@ -90,8 +93,11 @@ abstract class CommonProxy {
                 .setRegistryName(
                     MOD_ID,
                     "ritual_bag_entity"
-                )
+                ),
+            ModEntities.WRAITH_ENTITY
         )
+
+        ModEntities.registerEntityWorldSpawns()
     }
 
     @SubscribeEvent
@@ -120,6 +126,8 @@ abstract class CommonProxy {
             RitualBagItem(),
             SigilItem()
         )
+
+        ModEntities.registerEntitySpawnEggs(event)
     }
 
     @SubscribeEvent

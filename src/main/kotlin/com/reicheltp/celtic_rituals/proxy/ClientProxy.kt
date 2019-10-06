@@ -1,6 +1,8 @@
 package com.reicheltp.celtic_rituals.proxy
 
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.entities.WraithEntity
+import com.reicheltp.celtic_rituals.entities.WraithEntityRenderer
 import com.reicheltp.celtic_rituals.init.ModItems
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagEntity
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
@@ -38,6 +40,7 @@ class ClientProxy : CommonProxy() {
             RitualBagRenderer.RitualBagRenderFactory()
         )
 
+<<<<<<< master
         val blockColors = Minecraft.getInstance().blockColors
 
         blockColors.register(
@@ -52,6 +55,13 @@ class ClientProxy : CommonProxy() {
             },
             ModBlocks.MISTLETOE_LEAVES
         )
+=======
+        RenderingRegistry.registerEntityRenderingHandler<WraithEntity>(
+            WraithEntity::class.java,
+            WraithEntityRenderer.WraithEntityRendererFactory()
+        )
+
+>>>>>>> Add WraithEntity
         // See: https://mcforge.readthedocs.io/en/1.13.x/models/color/
         Minecraft.getInstance().itemColors.register(
             IItemColor { item, layer -> if (layer == 0) -1 else RitualBagItem.getColor(item) },
