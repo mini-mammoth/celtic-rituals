@@ -20,7 +20,7 @@ class RitualRecipeCategory(guiHelper: IGuiHelper) :
         val ID = ResourceLocation(MOD_ID, "bowl_ritual")
     }
 
-    private val ritualIcon = guiHelper.createDrawableIngredient(ItemStack(ModItems.RITUAL_SIGIL!!))
+    private val ritualIcon = guiHelper.createDrawableIngredient(ItemStack(ModItems.RITUAL_BOWL!!))
     private val bg = guiHelper.createBlankDrawable(100, 100)
 
     override fun getUid(): ResourceLocation = ID
