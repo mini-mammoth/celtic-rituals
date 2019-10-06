@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.Item
+import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemUseContext
 import net.minecraft.nbt.StringNBT
@@ -20,6 +21,7 @@ import net.minecraft.stats.Stats
 import net.minecraft.util.ActionResult
 import net.minecraft.util.ActionResultType
 import net.minecraft.util.Hand
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvents
@@ -172,5 +174,23 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAUL
 
         val name = ResourceLocation(item.tag!!.getString("recipe"))
         return this.translationKey + ".ritual." + name.path
+    }
+
+    /**
+     * Fill the item group with all subtypes of this item.
+     *
+     * Required for creative tab and JEI
+     */
+    override fun fillItemGroup(group: ItemGroup, items: NonNullList<ItemStack>) {
+        if (!isInGroup(group)) {
+            return
+        }
+
+        for (recipe in ModRecipes.bowlRitualRecipes) {
+            val bag = ItemStack(this)
+            setRecipe(bag, recipe)
+
+            items.add(bag)
+        }
     }
 }
