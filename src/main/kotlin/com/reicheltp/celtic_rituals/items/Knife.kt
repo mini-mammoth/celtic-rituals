@@ -1,20 +1,18 @@
 package com.reicheltp.celtic_rituals.items
 
 import com.reicheltp.celtic_rituals.MOD_ID
+import com.reicheltp.celtic_rituals.init.ModEnchantments
 import com.reicheltp.celtic_rituals.init.ModItemGroups
-import com.reicheltp.celtic_rituals.utils.Grow
-import com.reicheltp.celtic_rituals.utils.Spawn
-import net.minecraft.entity.EntityType
+import com.reicheltp.celtic_rituals.rituals.sacrifice.HeartItem
+import com.reicheltp.celtic_rituals.utils.addItemOrDrop
+import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.ChickenEntity
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemTier
+import net.minecraft.item.Rarity
 import net.minecraft.item.SwordItem
-import net.minecraft.util.DamageSource
-import net.minecraft.util.Hand
 import net.minecraft.util.ResourceLocation
-import org.apache.logging.log4j.LogManager
 
 /**
  * This knife is used to sacrifice mobs to trigger rituals.
@@ -24,41 +22,26 @@ import org.apache.logging.log4j.LogManager
 class Knife : SwordItem(
     ItemTier.WOOD, 1, 1f, Properties()
         .setNoRepair()
+        .rarity(Rarity.COMMON)
         .group(ModItemGroups.DEFAULT)
 ) {
-    companion object {
-        private val LOGGER = LogManager.getLogger()
-    }
-
     init {
         registryName = ResourceLocation(MOD_ID, "knife")
     }
 
-    override fun itemInteractionForEntity(
+    override fun hitEntity(
       stack: ItemStack,
-      playerIn: PlayerEntity,
       target: LivingEntity,
-      hand: Hand
+      attacker: LivingEntity
     ): Boolean {
-        val validTarget = hand == Hand.MAIN_HAND && target is ChickenEntity
+        val validTarget = target is ChickenEntity && target.health <= 0
+        val lvl = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.HEART_BREAKER!!, stack)
 
-        if (validTarget) {
-            target.attackEntityFrom(DamageSource.MAGIC, target.maxHealth)
-            Grow.aroundTarget(target.world, target.position, 3)
-
-            Spawn.spawnEntityAroundPosition(
-                target.world,
-                EntityType.ZOMBIE,
-                playerIn,
-                playerIn.position,
-                3,
-                7,
-                5
-            )
-
-            return true
+        if (validTarget && lvl == 0) {
+            stack.addEnchantment(ModEnchantments.HEART_BREAKER!!, 1)
+            attacker.addItemOrDrop(HeartItem.from(target.type))
         }
 
-        return super.itemInteractionForEntity(stack, playerIn, target, hand)
+        return super.hitEntity(stack, target, attacker)
     }
 }
