@@ -1,0 +1,9 @@
+{
+  "heartbeat_slow": {
+    "category": "player",
+    "subtitle": "celtic_rituals.subtitle.heartbeat_slow",
+    "sounds": [
+      "celtic_rituals:heartbeat_slow"
+    ]
+  }
+}
