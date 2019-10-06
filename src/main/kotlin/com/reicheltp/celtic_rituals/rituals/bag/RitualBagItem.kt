@@ -9,6 +9,7 @@ import com.reicheltp.celtic_rituals.rituals.bowl.BowlRitualRecipe
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import java.util.Optional
 import net.minecraft.client.Minecraft
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.Item
@@ -25,6 +26,8 @@ import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvents
+import net.minecraft.util.text.ITextComponent
+import net.minecraft.util.text.TranslationTextComponent
 import net.minecraft.world.World
 
 class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAULT)) {
@@ -132,7 +135,7 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAUL
             context.world
         )
 
-        if (!recipe.isPresent) {
+        if (!recipe.isPresent || recipe.get().preventBagging) {
             return ActionResultType.FAIL
         }
 
@@ -192,7 +195,25 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAUL
             val bag = ItemStack(this)
             setRecipe(bag, recipe)
 
+            if (recipe.preventBagging) {
+                bag.orCreateTag.putBoolean("PreventBagging", true)
+            }
+
             items.add(bag)
         }
+    }
+
+    override fun addInformation(
+      stack: ItemStack,
+      worldIn: World?,
+      tooltip: MutableList<ITextComponent>,
+      flagIn: ITooltipFlag
+    ) {
+        if (stack.orCreateTag.contains("PreventBagging")) {
+            val key = stack.item.translationKey + ".tooltip.prevent_bagging"
+            tooltip.add(TranslationTextComponent(key))
+        }
+
+        super.addInformation(stack, worldIn, tooltip, flagIn)
     }
 }

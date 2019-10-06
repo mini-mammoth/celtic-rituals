@@ -230,7 +230,7 @@ class RitualBowlBlock : Block(
             }
         }
 
-        if (!inProgress) {
+        if (!inProgress && !player.heldItemMainhand.isEmpty) {
             // Use item on bowl puts it in
             for (i in 0 until tile.sizeInventory) {
                 val stack = tile.getStackInSlot(i)

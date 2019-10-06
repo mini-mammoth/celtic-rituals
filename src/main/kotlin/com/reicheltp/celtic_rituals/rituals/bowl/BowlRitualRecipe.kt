@@ -35,7 +35,11 @@ class BowlRitualRecipe(
    * Duration in ticks, this recipe has to burn. Defaults to 60 (3s)
    */
   val duration: Int,
-  val color: Int
+  val color: Int,
+  /**
+   * If true, you are not allowed to pick this recipe with a ritual bag.
+   */
+  val preventBagging: Boolean
 ) : IRecipe<RitualBowlTile> {
     companion object {
         const val DEFAULT_DURATION = 60
@@ -104,7 +108,9 @@ class BowlRitualRecipe(
             val duration = json.get("duration")?.asInt ?: DEFAULT_DURATION
             val color = json.get("color")?.asColor ?: -1
 
-            return BowlRitualRecipe(recipeId, ingredients, result, duration, color)
+            val preventBagging = json.get("prevent_bagging")?.asBoolean ?: false
+
+            return BowlRitualRecipe(recipeId, ingredients, result, duration, color, preventBagging)
         }
 
         override fun write(buffer: PacketBuffer, recipe: BowlRitualRecipe) {
@@ -114,6 +120,7 @@ class BowlRitualRecipe(
             buffer.writeEffectList(recipe.result)
             buffer.writeInt(recipe.duration)
             buffer.writeInt(recipe.color)
+            buffer.writeBoolean(recipe.preventBagging)
         }
 
         override fun read(recipeId: ResourceLocation, buffer: PacketBuffer): BowlRitualRecipe? {
@@ -126,8 +133,9 @@ class BowlRitualRecipe(
             val result = buffer.readEffectList()
             val duration = buffer.readInt()
             val color = buffer.readInt()
+            val preventBagging = buffer.readBoolean()
 
-            return BowlRitualRecipe(recipeId, ingredients, result, duration, color)
+            return BowlRitualRecipe(recipeId, ingredients, result, duration, color, preventBagging)
         }
 
         private fun parseResults(element: JsonElement): List<IEffect> {
