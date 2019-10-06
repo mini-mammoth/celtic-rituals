@@ -186,6 +186,8 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAUL
             return
         }
 
+        items.add(ItemStack(this))
+
         for (recipe in ModRecipes.bowlRitualRecipes) {
             val bag = ItemStack(this)
             setRecipe(bag, recipe)
