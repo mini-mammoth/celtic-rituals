@@ -7,6 +7,9 @@ object ModItems {
     @ObjectHolder("celtic_rituals:ritual_bag")
     var RITUAL_BAG: Item? = null
 
+    @ObjectHolder("celtic_rituals:ritual_bowl")
+    var RITUAL_BOWL: Item? = null
+
     @ObjectHolder("celtic_rituals:knife")
     var RITUAL_KNIFE: Item? = null
 

@@ -9,7 +9,9 @@ import com.reicheltp.celtic_rituals.effects.EffectSerializer
 import com.reicheltp.celtic_rituals.effects.IEffect
 import com.reicheltp.celtic_rituals.effects.readEffectList
 import com.reicheltp.celtic_rituals.effects.writeEffectList
+import com.reicheltp.celtic_rituals.init.ModItems
 import com.reicheltp.celtic_rituals.init.ModRecipes
+import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
 import com.reicheltp.celtic_rituals.utils.asColor
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
@@ -46,7 +48,12 @@ class BowlRitualRecipe(
         return ModRecipes.BOWL_RITUAL_TYPE!!
     }
 
-    override fun getRecipeOutput(): ItemStack = ItemStack.EMPTY
+    override fun getRecipeOutput(): ItemStack {
+        val bag = ItemStack(ModItems.RITUAL_BAG!!)
+        RitualBagItem.setRecipe(bag, this)
+
+        return bag
+    }
 
     override fun getSerializer(): IRecipeSerializer<*> = ModRecipes.BOWL_RITUAL!!
 
