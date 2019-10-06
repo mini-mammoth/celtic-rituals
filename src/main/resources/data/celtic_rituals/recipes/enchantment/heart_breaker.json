@@ -1,0 +1,46 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "prevent_bagging": true,
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "item": "celtic_rituals:heart",
+      "nbt": {
+        "Entity": "minecraft:skeleton"
+      }
+    },
+    {
+      "type": "forge:nbt",
+      "item": "celtic_rituals:heart",
+      "nbt": {
+        "Entity": "minecraft:zombie"
+      }
+    },
+    {
+      "type": "forge:nbt",
+      "item": "celtic_rituals:heart",
+      "nbt": {
+        "Entity": "minecraft:spider"
+      }
+    },
+    {
+      "type": "forge:nbt",
+      "item": "celtic_rituals:heart",
+      "nbt": {
+        "Entity": "minecraft:enderman"
+      }
+    },
+    {
+      "type": "forge:nbt",
+      "item": "celtic_rituals:heart",
+      "nbt": {
+        "Entity": "minecraft:creeper"
+      }
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:add_enchantment",
+    "enchantment": "celtic_rituals:heart_breaker",
+    "level": 1
+  }
+}

@@ -38,7 +38,7 @@ class Knife : SwordItem(
         val lvl = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.HEART_BREAKER!!, stack)
 
         if (validTarget && lvl == 0) {
-            stack.addEnchantment(ModEnchantments.HEART_BREAKER!!, 1)
+            stack.addEnchantment(ModEnchantments.HEART_BREAKER!!, 3)
             attacker.addItemOrDrop(HeartItem.from(target.type))
         }
 
