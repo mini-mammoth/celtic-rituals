@@ -1,0 +1,22 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#cd3796",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:long_regeneration"
+  }
+}

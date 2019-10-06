@@ -1,0 +1,25 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#6a6977",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:long_invisibility"
+  }
+}

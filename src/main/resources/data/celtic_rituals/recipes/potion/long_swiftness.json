@@ -1,0 +1,22 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#66a0b8",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:long_turtle_master"
+  }
+}

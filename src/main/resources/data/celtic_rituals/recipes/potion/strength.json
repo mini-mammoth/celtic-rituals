@@ -1,0 +1,19 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#820000",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:strength"
+  }
+}

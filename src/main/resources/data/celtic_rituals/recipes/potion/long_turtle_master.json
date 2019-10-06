@@ -1,0 +1,22 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#5d363a",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:turtle_helmet"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:healing"
+  }
+}

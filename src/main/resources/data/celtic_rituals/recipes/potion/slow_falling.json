@@ -1,0 +1,19 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#fff1c6",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:slow_falling"
+  }
+}

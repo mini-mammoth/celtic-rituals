@@ -1,0 +1,19 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "000089",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:golden_carrot"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:night_vision"
+  }
+}

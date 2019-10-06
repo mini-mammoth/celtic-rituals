@@ -1,0 +1,22 @@
+{
+  "type": "celtic_rituals:bowl_ritual",
+  "color": "#66a0b8",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ],
+  "result": {
+    "effect": "celtic_rituals:potion",
+    "potion": "minecraft:strong_swiftness"
+  }
+}
