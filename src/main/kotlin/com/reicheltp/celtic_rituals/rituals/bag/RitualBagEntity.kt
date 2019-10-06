@@ -64,7 +64,7 @@ class RitualBagEntity : ThrowableEntity, IRendersAsItem {
         val recipe = RitualBagItem.getRecipe(item)
         val inv = Inventory(5)
         recipe.ifPresent {
-            it.applyEffects(world, position, inv)
+            it.applyEffects(world, position, inv, ItemStack.EMPTY)
         }
 
         InventoryHelper.dropInventoryItems(world, position, inv)

@@ -2,7 +2,9 @@ package com.reicheltp.celtic_rituals.rituals.bowl
 
 import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.utils.clear
+import com.reicheltp.celtic_rituals.utils.getItemStack
 import com.reicheltp.celtic_rituals.utils.isEmpty
+import com.reicheltp.celtic_rituals.utils.putItemStack
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
@@ -21,14 +23,23 @@ import net.minecraftforge.items.ItemStackHandler
  * TileEntity for @see RitualBowlBlock entity.
  */
 class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), IInventory {
+    public var specialItem: ItemStack = ItemStack.EMPTY
+        private set
+
     // The item handler capability keeps
-    private val ingredients = LazyOptional.of { ItemStackHandler(5) }
+    private val ingredients = LazyOptional.of {
+        object : ItemStackHandler(5) {
+            override fun getSlotLimit(slot: Int): Int = 1
+        }
+    }
 
     /**
      * Used when world is loaded an the tile entity is reconstructed.
      */
     override fun read(tag: CompoundNBT) {
         ingredients.ifPresent { it.deserializeNBT(tag.getCompound("inv")) }
+        specialItem = tag.getItemStack("SpecialItem")
+
         super.read(tag)
     }
 
@@ -37,7 +48,17 @@ class RitualBowlTile : TileEntity(ModBlocks.RITUAL_BOWL_TILE!!), IInventory {
      */
     override fun write(tag: CompoundNBT): CompoundNBT {
         ingredients.ifPresent { tag.put("inv", it.serializeNBT()) }
+        tag.putItemStack("SpecialItem", specialItem)
+
         return super.write(tag)
+    }
+
+    /**
+     * Replaces special item of tile entity.
+     */
+    fun replaceSpecialItem(item: ItemStack) {
+        specialItem = item
+        markDirty()
     }
 
     /**

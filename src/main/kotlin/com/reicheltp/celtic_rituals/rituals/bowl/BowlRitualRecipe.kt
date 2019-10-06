@@ -62,14 +62,14 @@ class BowlRitualRecipe(
         // Remove all ingredients
         tile.clear()
 
-        applyEffects(tile.world!!, tile.pos, tile)
+        applyEffects(tile.world!!, tile.pos, tile, tile.specialItem)
 
         return ItemStack.EMPTY
     }
 
-    fun applyEffects(world: World, pos: BlockPos, inv: IInventory) {
+    fun applyEffects(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
         for (r in result) {
-            r.apply(world, pos, inv)
+            r.apply(world, pos, inv, special)
         }
     }
 

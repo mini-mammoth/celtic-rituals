@@ -2,8 +2,9 @@ package com.reicheltp.celtic_rituals.rituals.bowl
 
 import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.init.ModItems
 import com.reicheltp.celtic_rituals.init.ModRecipes
-import com.reicheltp.celtic_rituals.utils.canBeCombined
+import com.reicheltp.celtic_rituals.utils.addItemOrDrop
 import java.util.Random
 import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.block.Block
@@ -194,6 +195,28 @@ class RitualBowlBlock : Block(
             return true
         }
 
+        // We can add an item to be part of the ritual
+        if (inProgress && !player.heldItemMainhand.isEmpty && tile.specialItem.isEmpty) {
+            if (player.heldItemMainhand.item === ModItems.RITUAL_BAG) {
+                // This special case is handles by ritual bag
+                return false
+            }
+
+            tile.replaceSpecialItem(player.heldItemMainhand.split(1))
+
+            return true
+        }
+
+        // Let player pick up the item from the ritual
+        if (!inProgress && player.heldItemMainhand.isEmpty && !tile.specialItem.isEmpty) {
+            player.setItemStackToSlot(EquipmentSlotType.MAINHAND, tile.specialItem)
+            tile.replaceSpecialItem(ItemStack.EMPTY)
+
+            player.playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, 1.0f, 0.0f)
+
+            return true
+        }
+
         // Sneak pick pulls a stack from bowl
         if (!inProgress && player.heldItemMainhand.isEmpty && player.isSneaking) {
             for (i in 0 until tile.sizeInventory) {
@@ -202,13 +225,8 @@ class RitualBowlBlock : Block(
                     continue
                 }
 
-                InventoryHelper.spawnItemStack(
-                    worldIn,
-                    pos.x.toDouble(),
-                    pos.y.toDouble(),
-                    pos.z.toDouble(),
-                    stack
-                )
+                player.addItemOrDrop(stack.split(stack.maxStackSize))
+                return true
             }
         }
 
@@ -222,11 +240,7 @@ class RitualBowlBlock : Block(
                         val item = player.heldItemMainhand.split(1)
                         tile.setInventorySlotContents(i, item)
 
-                        return true
-                    }
-                    stack.canBeCombined(player.heldItemMainhand) -> {
-                        player.heldItemMainhand.shrink(1)
-                        stack.grow(1)
+                        player.playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, 1.0f, 1.0f)
 
                         return true
                     }
