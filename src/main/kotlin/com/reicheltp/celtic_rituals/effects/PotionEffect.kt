@@ -22,7 +22,7 @@ class PotionEffect(
   private val particle: String,
   private val color: Int
 ) : IEffect {
-    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack): Boolean {
+    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
         val entity =
             AreaEffectCloudEntity(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
 
@@ -33,8 +33,6 @@ class PotionEffect(
         entity.color = color
 
         world.addEntity(entity)
-
-        return true
     }
 
     override val serializer: EffectSerializer<*> = SERIALIZER

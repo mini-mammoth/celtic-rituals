@@ -37,7 +37,7 @@ interface IEffect {
      *
      * Returns true, if effect was successful.
      */
-    fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack): Boolean
+    fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack)
 
     /**
      * Returns an instance of the belonging serializer.

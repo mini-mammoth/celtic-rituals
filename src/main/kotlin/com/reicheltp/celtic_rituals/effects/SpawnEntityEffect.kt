@@ -18,8 +18,8 @@ class SpawnEntityEffect(
   private val count: Int
 ) : IEffect {
 
-    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack): Boolean {
-        return Spawn.spawnEntityAroundPosition(
+    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
+        Spawn.spawnEntityAroundPosition(
             world,
             type,
             null,

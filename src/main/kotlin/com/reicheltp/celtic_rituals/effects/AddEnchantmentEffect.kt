@@ -16,14 +16,12 @@ class AddEnchantmentEffect(
   val enchantment: Enchantment,
   val lvl: Int
 ) : IEffect {
-    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack): Boolean {
+    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
         if (!enchantment.canApply(special)) {
-            return false
+            return
         }
 
         special.addEnchantment(enchantment, lvl)
-
-        return true
     }
 
     override val serializer: EffectSerializer<*> = SERIALIZER

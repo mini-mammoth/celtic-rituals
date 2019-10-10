@@ -22,15 +22,12 @@ class ChangeWeatherEffect(
   private val condition: WeatherConditions,
   private val duration: Int
 ) : IEffect {
-    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack): Boolean {
+    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
         when {
             condition === WeatherConditions.CLEAR -> setClear(world, duration)
             condition === WeatherConditions.RAIN -> setRain(world, duration)
             condition === WeatherConditions.THUNDER -> setThunder(world, duration)
-            else -> return false
         }
-
-        return true
     }
 
     override val serializer: EffectSerializer<*> = SERIALIZER
