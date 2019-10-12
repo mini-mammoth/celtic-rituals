@@ -10,7 +10,9 @@ import com.reicheltp.celtic_rituals.effects.PotionEffect
 import com.reicheltp.celtic_rituals.effects.SpawnEntityEffect
 import com.reicheltp.celtic_rituals.ingredients.mistletoe.MistletoeItem
 import com.reicheltp.celtic_rituals.ingredients.mistletoe.MistletoeLeavesBlock
+import com.reicheltp.celtic_rituals.ingredients.mistletoe.addToForestBiomes
 import com.reicheltp.celtic_rituals.init.ModBlocks
+import com.reicheltp.celtic_rituals.init.ModFeatures
 import com.reicheltp.celtic_rituals.init.ModItemGroups
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.items.Knife
@@ -33,6 +35,8 @@ import net.minecraft.item.crafting.IRecipeSerializer
 import net.minecraft.item.crafting.IRecipeType
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.ResourceLocation
+import net.minecraft.world.biome.Biome
+import net.minecraft.world.gen.feature.Feature
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.registries.RegistryBuilder
@@ -132,6 +136,18 @@ abstract class CommonProxy {
             PotionEffect.SERIALIZER,
             SpawnEntityEffect.SERIALIZER
         )
+    }
+
+    @SubscribeEvent
+    fun registerBiomeFeatures(event: RegistryEvent.Register<Feature<*>>) {
+        event.registry.registerAll(
+            ModFeatures.MISTLETOE_TREE
+        )
+    }
+
+    @SubscribeEvent
+    fun registerBiome(event: RegistryEvent.Register<Biome>) {
+        ModFeatures.MISTLETOE_TREE.addToForestBiomes(event.registry.values)
     }
 
     /**
