@@ -51,7 +51,8 @@ class RitualBagItem : Item(Properties().setNoRepair().group(ModItemGroups.DEFAUL
             val tag = item.getOrCreateTag()
             val name = ResourceLocation(tag.getString("recipe"))
 
-            val recipe = Minecraft.getInstance().world.recipeManager.getRecipe(name)
+            val recipe = Minecraft.getInstance().world?.recipeManager?.getRecipe(name)
+                ?: Optional.empty()
 
             return recipe.map { it as BowlRitualRecipe }
         }

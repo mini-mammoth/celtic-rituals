@@ -7,6 +7,12 @@ object ModItems {
     @ObjectHolder("celtic_rituals:heart")
     var HEART: Item? = null
 
+    @ObjectHolder("celtic_rituals:mistletoe")
+    var MISTLETOE: Item? = null
+
+    @ObjectHolder("celtic_rituals:mistletoe_leaves")
+    var MISTLETOE_LEAVES: Item? = null
+
     @ObjectHolder("celtic_rituals:ritual_bag")
     var RITUAL_BAG: Item? = null
 

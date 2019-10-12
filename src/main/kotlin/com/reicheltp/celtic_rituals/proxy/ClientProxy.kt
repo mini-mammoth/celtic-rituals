@@ -1,5 +1,6 @@
 package com.reicheltp.celtic_rituals.proxy
 
+import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModItems
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagEntity
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem
@@ -8,7 +9,11 @@ import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlRenderer
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import com.reicheltp.celtic_rituals.rituals.sacrifice.HeartItem
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.item.BlockItem
+import net.minecraft.world.FoliageColors
+import net.minecraft.world.biome.BiomeColors
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -33,6 +38,20 @@ class ClientProxy : CommonProxy() {
             RitualBagRenderer.RitualBagRenderFactory()
         )
 
+        val blockColors = Minecraft.getInstance().blockColors
+
+        blockColors.register(
+            IBlockColor { state, world, pos, layer ->
+                if (layer != 0) {
+                    -1
+                } else if (world != null && pos != null) {
+                    BiomeColors.getFoliageColor(world, pos)
+                } else {
+                    FoliageColors.getDefault()
+                }
+            },
+            ModBlocks.MISTLETOE_LEAVES
+        )
         // See: https://mcforge.readthedocs.io/en/1.13.x/models/color/
         Minecraft.getInstance().itemColors.register(
             IItemColor { item, layer -> if (layer == 0) -1 else RitualBagItem.getColor(item) },
@@ -42,6 +61,14 @@ class ClientProxy : CommonProxy() {
         Minecraft.getInstance().itemColors.register(
             IItemColor { i, l -> HeartItem.getColor(i, l) },
             ModItems.HEART
+        )
+
+        Minecraft.getInstance().itemColors.register(
+            IItemColor { i, l ->
+                val state = (i.item as BlockItem).block.defaultState
+                blockColors.getColor(state, null, null, l)
+            },
+            ModBlocks.MISTLETOE_LEAVES
         )
     }
 }
