@@ -23,12 +23,22 @@ class RitualBowlRenderer : TileEntityRenderer<RitualBowlTile>() {
       partialTicks: Float,
       destroyStage: Int
     ) {
+        val renderer = Minecraft.getInstance().itemRenderer
+
+        GlStateManager.pushMatrix()
+
+        GlStateManager.translated(x, y, z)
+        GlStateManager.translated(.5, .5, .5)
+        GlStateManager.rotatef((partialTicks + this.world.gameTime) * 1.2F % 360F, 0f, 1f, 0f)
+
+        renderer.renderItem(tile.specialItem, ItemCameraTransforms.TransformType.GROUND)
+
+        GlStateManager.popMatrix()
+
         if (tile.blockState.get(BlockStateProperties.ENABLED)) {
             // No need to render items when bowl is ignited
             return
         }
-
-        val renderer = Minecraft.getInstance().itemRenderer
 
         val size = tile.sizeInventory
         val step = (Math.PI * 2.0) / size.toDouble()

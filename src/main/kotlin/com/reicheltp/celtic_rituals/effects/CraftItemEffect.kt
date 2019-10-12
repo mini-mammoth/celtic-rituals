@@ -15,17 +15,15 @@ class CraftItemEffect(
 ) : IEffect {
     override val serializer: EffectSerializer<*> = SERIALIZER
 
-    override fun apply(world: World, pos: BlockPos, inv: IInventory): Boolean {
+    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
         for (i in 0 until inv.sizeInventory) {
             if (!inv.getStackInSlot(i).isEmpty) {
                 continue
             }
 
             inv.setInventorySlotContents(i, item)
-            return true
+            return
         }
-
-        return false
     }
 
     companion object {

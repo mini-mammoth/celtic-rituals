@@ -5,6 +5,7 @@ import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.utils.Spawn
 import net.minecraft.entity.EntityType
 import net.minecraft.inventory.IInventory
+import net.minecraft.item.ItemStack
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
@@ -17,8 +18,8 @@ class SpawnEntityEffect(
   private val count: Int
 ) : IEffect {
 
-    override fun apply(world: World, pos: BlockPos, inv: IInventory): Boolean {
-        return Spawn.spawnEntityAroundPosition(
+    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
+        Spawn.spawnEntityAroundPosition(
             world,
             type,
             null,

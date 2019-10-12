@@ -1,14 +1,12 @@
 package com.reicheltp.celtic_rituals.rituals.sacrifice
 
 import com.reicheltp.celtic_rituals.MOD_ID
+import com.reicheltp.celtic_rituals.utils.addItemOrDrop
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentType
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.EquipmentSlotType
-import net.minecraft.inventory.InventoryHelper
-import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 
 /**
@@ -35,11 +33,7 @@ class HeartBreakerEnchantment : Enchantment(
         }
 
         if (user.world.random.nextFloat() < 0.2 * level.toDouble()) {
-            val heart = HeartItem.from(target.type)
-
-            if (user !is PlayerEntity || !user.addItemStackToInventory(heart)) {
-                InventoryHelper.dropItems(user.world, user.position, NonNullList.from(heart))
-            }
+            user.addItemOrDrop(HeartItem.from(target.type))
         }
     }
 }

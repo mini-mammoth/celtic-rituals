@@ -5,6 +5,7 @@ import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.utils.asColor
 import net.minecraft.entity.AreaEffectCloudEntity
 import net.minecraft.inventory.IInventory
+import net.minecraft.item.ItemStack
 import net.minecraft.network.PacketBuffer
 import net.minecraft.particles.IParticleData
 import net.minecraft.particles.ParticleTypes
@@ -21,7 +22,7 @@ class PotionEffect(
   private val particle: String,
   private val color: Int
 ) : IEffect {
-    override fun apply(world: World, pos: BlockPos, inv: IInventory): Boolean {
+    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
         val entity =
             AreaEffectCloudEntity(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble())
 
@@ -32,8 +33,6 @@ class PotionEffect(
         entity.color = color
 
         world.addEntity(entity)
-
-        return true
     }
 
     override val serializer: EffectSerializer<*> = SERIALIZER

@@ -3,6 +3,7 @@ package com.reicheltp.celtic_rituals.effects
 import com.google.gson.JsonObject
 import com.google.gson.JsonParseException
 import net.minecraft.inventory.IInventory
+import net.minecraft.item.ItemStack
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
@@ -36,7 +37,7 @@ interface IEffect {
      *
      * Returns true, if effect was successful.
      */
-    fun apply(world: World, pos: BlockPos, inv: IInventory): Boolean
+    fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack)
 
     /**
      * Returns an instance of the belonging serializer.

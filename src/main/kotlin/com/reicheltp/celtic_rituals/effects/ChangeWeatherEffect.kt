@@ -3,6 +3,7 @@ package com.reicheltp.celtic_rituals.effects
 import com.google.gson.JsonObject
 import com.reicheltp.celtic_rituals.MOD_ID
 import net.minecraft.inventory.IInventory
+import net.minecraft.item.ItemStack
 import net.minecraft.network.PacketBuffer
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
@@ -21,15 +22,12 @@ class ChangeWeatherEffect(
   private val condition: WeatherConditions,
   private val duration: Int
 ) : IEffect {
-    override fun apply(world: World, pos: BlockPos, inv: IInventory): Boolean {
+    override fun apply(world: World, pos: BlockPos, inv: IInventory, special: ItemStack) {
         when {
             condition === WeatherConditions.CLEAR -> setClear(world, duration)
             condition === WeatherConditions.RAIN -> setRain(world, duration)
             condition === WeatherConditions.THUNDER -> setThunder(world, duration)
-            else -> return false
         }
-
-        return true
     }
 
     override val serializer: EffectSerializer<*> = SERIALIZER

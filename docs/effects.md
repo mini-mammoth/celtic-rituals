@@ -5,6 +5,18 @@ Effects are identified by `{ "effect": ResourceLocation }`
 
 ## Known Effects
 
+### Add Enchantment
+
+Adds an enchantment on the special items hovering over the bowl.
+This respects the same conditions for apply as the enchantment table. 
+
+| param | value |
+| --- | --- |
+| effect | `celtic_rituals:add_enchantment` |
+| enchantment | Name of the enchantment. E.g. `minecraft:protection` |
+| lvl | **(optional)** Level of enchantment. Defaults to 1 |  
+
+
 ### Change Weather
 
 Changes the weather for a given time.
