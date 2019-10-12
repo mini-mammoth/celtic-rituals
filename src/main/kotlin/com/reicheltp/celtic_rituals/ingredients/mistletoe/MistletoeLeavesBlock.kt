@@ -2,6 +2,7 @@ package com.reicheltp.celtic_rituals.ingredients.mistletoe
 
 import com.reicheltp.celtic_rituals.MOD_ID
 import java.util.Random
+import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.block.FireBlock
@@ -68,6 +69,7 @@ class MistletoeLeavesBlock : LeavesBlock(
                 return
             } else {
                 // Nothing left to consume
+                Block.spawnDrops(state, worldIn, pos)
                 worldIn.removeBlock(pos, false)
             }
         } else {
