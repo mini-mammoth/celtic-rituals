@@ -4,6 +4,8 @@
   "item.celtic_rituals.sigil": "Celtic Sigil",
   "item.celtic_rituals.heart": "Heart",
   "item.celtic_rituals.knife": "Druid Knife",
+  "item.celtic_rituals.mistletoe": "Mistletoe",
+  "item.celtic_rituals.mistletoe_leaves": "Mistletoe Leaves",
   "item.celtic_rituals.ritual_bowl": "Ritual Bowl",
   "item.celtic_rituals.ritual_bag": "Ritual Bag",
   "item.celtic_rituals.ritual_bag.tooltip.prevent_bagging": "Ritual Bowl only. Can not be bagged.",
@@ -48,5 +50,6 @@
   "item.celtic_rituals.ritual_bag.ritual.potion/water_breathing": "Bag of Water Breathing",
   "item.celtic_rituals.ritual_bag.ritual.potion/weakness": "Bag of Weakness",
   "jei.recipes.bowl_ritual.title": "Bowl Ritual",
+  "block.celtic_rituals.mistletoe_leaves": "Mistletoe Leaves",
   "block.celtic_rituals.ritual_bowl": "Ritual Bowl"
 }
