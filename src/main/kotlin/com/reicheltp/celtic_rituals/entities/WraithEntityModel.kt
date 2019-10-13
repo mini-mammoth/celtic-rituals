@@ -1,13 +1,12 @@
 package com.reicheltp.celtic_rituals.entities
 
 import com.mojang.blaze3d.platform.GlStateManager
-import net.minecraft.client.renderer.entity.model.CowModel
 import net.minecraft.client.renderer.entity.model.EntityModel
 import net.minecraft.client.renderer.entity.model.RendererModel
 import net.minecraft.client.renderer.model.ModelBox
 
-class WraithEntityModel : CowModel<WraithEntity>() {
-    private val head1: RendererModel
+class WraithEntityModel : EntityModel<WraithEntity>() {
+    private val head: RendererModel
     private val body: RendererModel
     private val leftArm: RendererModel
     private val rightArm: RendererModel
@@ -18,7 +17,7 @@ class WraithEntityModel : CowModel<WraithEntity>() {
         textureWidth = 16
         textureHeight = 16
 
-        head1 = RendererModel(this)
+        head = RendererModel(this)
         head.setRotationPoint(0.0f, 13.0f, 0.5f)
         head.cubeList.add(ModelBox(head, 0, 0, -1.0f, -2.0f, -0.5f, 2, 2, 1, 0.0f, false))
 
@@ -73,12 +72,12 @@ class WraithEntityModel : CowModel<WraithEntity>() {
         }
         else
         {
-            head.render(1f)
-            body.render(1f)
-            leftArm.render(1f)
-            rightArm.render(1f)
-            leftLeg.render(1f)
-            rightLegs.render(1f)
+            head.render(scale)
+            body.render(scale)
+            leftArm.render(scale)
+            rightArm.render(scale)
+            leftLeg.render(scale)
+            rightLegs.render(scale)
         }
     }
 
@@ -91,7 +90,7 @@ class WraithEntityModel : CowModel<WraithEntity>() {
       headPitch: Float,
       scaleFactor: Float
     ) {
-        this.head1.rotateAngleX = headPitch * (Math.PI.toFloat() / 180f)
-        this.head1.rotateAngleY = netHeadYaw * (Math.PI.toFloat() / 180f)
+        this.head.rotateAngleX = headPitch * (Math.PI.toFloat() / 180f)
+        this.head.rotateAngleY = netHeadYaw * (Math.PI.toFloat() / 180f)
     }
 }
