@@ -3,6 +3,7 @@ package com.reicheltp.celtic_rituals.proxy
 import com.reicheltp.celtic_rituals.MOD_ID
 import com.reicheltp.celtic_rituals.blocks.BoneStandBlock
 import com.reicheltp.celtic_rituals.effects.AddEnchantmentEffect
+import com.reicheltp.celtic_rituals.effects.ChangeBiomeEffect
 import com.reicheltp.celtic_rituals.effects.ChangeWeatherEffect
 import com.reicheltp.celtic_rituals.effects.CraftItemEffect
 import com.reicheltp.celtic_rituals.effects.EffectSerializer
@@ -131,6 +132,7 @@ abstract class CommonProxy {
     fun registerEffects(event: RegistryEvent.Register<EffectSerializer<*>>) {
         event.registry.registerAll(
             AddEnchantmentEffect.SERIALIZER,
+            ChangeBiomeEffect.SERIALIZER,
             ChangeWeatherEffect.SERIALIZER,
             CraftItemEffect.SERIALIZER,
             PotionEffect.SERIALIZER,

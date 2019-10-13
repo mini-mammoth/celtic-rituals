@@ -17,6 +17,17 @@ This respects the same conditions for apply as the enchantment table.
 | lvl | **(optional)** Level of enchantment. Defaults to 1 |  
 
 
+### Change Biome
+
+Changes the biome around the ritual center.
+
+| param | value |
+| --- | --- |
+| effect | `celtic_rituals:change_biome` |
+| biome | Name of the biome. E.g. `minecraft:plains` |
+| radius | **(optional)** size of the area around the center. Defaults to 5 |  
+
+
 ### Change Weather
 
 Changes the weather for a given time.
