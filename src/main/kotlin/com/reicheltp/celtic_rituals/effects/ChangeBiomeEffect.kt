@@ -62,6 +62,11 @@ class ChangeBiomeEffect(
         //
         // Therefore, we send a custom biome changed info to all clients tracking the related chunks.
         for ((chunk, biomes) in dirtyChunks.entries) {
+            // Do not send updates from remote worlds
+            if (world.isRemote) {
+                return
+            }
+
             ModPacketHandler.CHANNEL.send(
                 PacketDistributor.TRACKING_CHUNK.with { chunk },
                 BiomesChangedMessage(chunk.pos, biomes, biome)
