@@ -15,6 +15,7 @@ import com.reicheltp.celtic_rituals.ingredients.mistletoe.addToForestBiomes
 import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModFeatures
 import com.reicheltp.celtic_rituals.init.ModItemGroups
+import com.reicheltp.celtic_rituals.init.ModPacketHandler
 import com.reicheltp.celtic_rituals.init.ModRecipes
 import com.reicheltp.celtic_rituals.items.Knife
 import com.reicheltp.celtic_rituals.items.SigilItem
@@ -25,6 +26,7 @@ import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlBlock
 import com.reicheltp.celtic_rituals.rituals.bowl.RitualBowlTile
 import com.reicheltp.celtic_rituals.rituals.sacrifice.HeartBreakerEnchantment
 import com.reicheltp.celtic_rituals.rituals.sacrifice.HeartItem
+import com.reicheltp.celtic_rituals.utils.register
 import java.util.function.Supplier
 import net.minecraft.block.Block
 import net.minecraft.enchantment.Enchantment
@@ -40,6 +42,7 @@ import net.minecraft.world.biome.Biome
 import net.minecraft.world.gen.feature.Feature
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.registries.RegistryBuilder
 
 /**
@@ -49,6 +52,15 @@ import net.minecraftforge.registries.RegistryBuilder
  * @See ServerProxy for server-side only registrations.
  */
 abstract class CommonProxy {
+    @SubscribeEvent
+    fun registerMessages(event: FMLCommonSetupEvent) {
+        // We need a unique id for each registered message.
+        // Using id++ ensures to have a unique id for each new registered message.
+        var id = 0
+
+        ModPacketHandler.CHANNEL.register(id++, ChangeBiomeEffect.BIOMES_CHANGED_MESSENGER)
+    }
+
     @SubscribeEvent
     fun onBlocksRegistry(event: RegistryEvent.Register<Block>) {
         event.registry.registerAll(
