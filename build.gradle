@@ -15,13 +15,15 @@ plugins {
 
     id "org.jlleitschuh.gradle.ktlint" version "${ktlint_version}"
     id "org.jlleitschuh.gradle.ktlint-idea" version "${ktlint_version}"
+
+    id 'com.palantir.git-version' version '0.12.2'
 }
 
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 
-version = modVersion
+version = "${mc_version}-${gitVersion()}"
 group = modGroup
 archivesBaseName = modBaseName
 
@@ -94,7 +96,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             environment += [
-                assetDirectory: file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
+                assetDirectory  : file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
                 nativesDirectory: extractNatives.output
             ]
 
@@ -115,7 +117,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             environment += [
-                assetDirectory: file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
+                assetDirectory  : file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
                 nativesDirectory: extractNatives.output
             ]
 
@@ -138,7 +140,7 @@ minecraft {
             args '--mod', 'celtic_rituals', '--all', '--output', file('src/generated/resources/')
 
             environment += [
-                assetDirectory: file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
+                assetDirectory  : file("${gradle.getGradleUserHomeDir()}/caches/forge_gradle/assets/"),
                 nativesDirectory: extractNatives.output
             ]
 
