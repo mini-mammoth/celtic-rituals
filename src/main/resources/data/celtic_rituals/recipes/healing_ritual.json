@@ -28,6 +28,11 @@
     {
       "effect": "celtic_rituals:change_weather",
       "weather": "clear"
+    },
+    {
+      "effect": "celtic_rituals:change_biome",
+      "biome": "minecraft:plains",
+      "radius": 5
     }
   ]
 }
