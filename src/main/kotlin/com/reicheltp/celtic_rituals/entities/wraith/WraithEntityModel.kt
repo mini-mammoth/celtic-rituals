@@ -1,4 +1,4 @@
-package com.reicheltp.celtic_rituals.entities
+package com.reicheltp.celtic_rituals.entities.wraith
 
 import com.mojang.blaze3d.platform.GlStateManager
 import net.minecraft.client.renderer.entity.model.EntityModel

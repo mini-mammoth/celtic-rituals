@@ -1,10 +1,8 @@
-package com.reicheltp.celtic_rituals.entities
+package com.reicheltp.celtic_rituals.entities.wraith
 
 import com.reicheltp.celtic_rituals.init.ModEntities
-import com.reicheltp.celtic_rituals.rituals.bag.RitualBagEntity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.ai.goal.MeleeAttackGoal
-import net.minecraft.entity.ai.goal.SwimGoal
 import net.minecraft.entity.monster.MonsterEntity
 import net.minecraft.world.World
 
