@@ -8,8 +8,18 @@ import net.minecraft.item.SpawnEggItem
 import net.minecraft.util.ResourceLocation
 
 object RegistrationHelper {
-    fun createEntitySpawnEgg(entityType: EntityType<*>,primaryColor: Int, secondaryColor: Int, registryName: String): SpawnEggItem{
-        val spawnEggItem = SpawnEggItem(entityType, primaryColor, secondaryColor, Item.Properties().group(ModItemGroups.DEFAULT))
+    fun createEntitySpawnEgg(
+      entityType: EntityType<*>,
+      primaryColor: Int,
+      secondaryColor: Int,
+      registryName: String
+    ): SpawnEggItem {
+        val spawnEggItem = SpawnEggItem(
+            entityType,
+            primaryColor,
+            secondaryColor,
+            Item.Properties().group(ModItemGroups.DEFAULT)
+        )
         spawnEggItem.setRegistryName(ResourceLocation(MOD_ID, registryName))
 
         return spawnEggItem

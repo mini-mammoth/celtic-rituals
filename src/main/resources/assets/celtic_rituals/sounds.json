@@ -5,5 +5,12 @@
     "sounds": [
       "celtic_rituals:heartbeat_slow"
     ]
+  },
+  "kobold_chuckle": {
+    "category": "hostile",
+    "subtitle": "celtic_rituals.subtitle.kobold_chuckle",
+    "sounds": [
+      "celtic_rituals:kobold_chuckle"
+    ]
   }
 }

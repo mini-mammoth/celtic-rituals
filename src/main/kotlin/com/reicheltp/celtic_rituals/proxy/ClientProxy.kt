@@ -2,9 +2,9 @@ package com.reicheltp.celtic_rituals.proxy
 
 import com.reicheltp.celtic_rituals.entities.kobold.KoboldEntity
 import com.reicheltp.celtic_rituals.entities.kobold.KoboldEntityRenderer
-import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.entities.wraith.WraithEntity
 import com.reicheltp.celtic_rituals.entities.wraith.WraithEntityRenderer
+import com.reicheltp.celtic_rituals.init.ModBlocks
 import com.reicheltp.celtic_rituals.init.ModItems
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagEntity
 import com.reicheltp.celtic_rituals.rituals.bag.RitualBagItem

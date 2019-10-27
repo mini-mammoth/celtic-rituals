@@ -69,9 +69,7 @@ class WraithEntityModel : EntityModel<WraithEntity>() {
             leftLeg.render(scale)
             rightLegs.render(scale)
             GlStateManager.popMatrix()
-        }
-        else
-        {
+        } else {
             head.render(scale)
             body.render(scale)
             leftArm.render(scale)

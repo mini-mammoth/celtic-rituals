@@ -13,8 +13,8 @@ import com.reicheltp.celtic_rituals.ingredients.mistletoe.MistletoeItem
 import com.reicheltp.celtic_rituals.ingredients.mistletoe.MistletoeLeavesBlock
 import com.reicheltp.celtic_rituals.ingredients.mistletoe.addToForestBiomes
 import com.reicheltp.celtic_rituals.init.ModBlocks
-import com.reicheltp.celtic_rituals.init.ModFeatures
 import com.reicheltp.celtic_rituals.init.ModEntities
+import com.reicheltp.celtic_rituals.init.ModFeatures
 import com.reicheltp.celtic_rituals.init.ModItemGroups
 import com.reicheltp.celtic_rituals.init.ModPacketHandler
 import com.reicheltp.celtic_rituals.init.ModRecipes

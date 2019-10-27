@@ -8,7 +8,8 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.client.registry.IRenderFactory
 import org.apache.logging.log4j.LogManager
 
-class WraithEntityRenderer(manager: EntityRendererManager): LivingRenderer<WraithEntity, WraithEntityModel>(manager,
+class WraithEntityRenderer(manager: EntityRendererManager) :
+    LivingRenderer<WraithEntity, WraithEntityModel>(manager,
     WraithEntityModel(), 0f) {
     companion object {
         private val LOGGER = LogManager.getLogger()

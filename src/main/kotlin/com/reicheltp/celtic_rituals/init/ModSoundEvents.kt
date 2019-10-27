@@ -5,4 +5,6 @@ import net.minecraft.util.SoundEvent
 
 object ModSoundEvents {
     val HEARTBEAT_SLOW = SoundEvent(ResourceLocation("celtic_rituals:heartbeat_slow"))
+
+    val KOBOLD_CHUCKLE = SoundEvent(ResourceLocation("celtic_rituals:kobold_chuckle"))
 }

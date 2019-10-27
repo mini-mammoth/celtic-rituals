@@ -8,14 +8,30 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.client.registry.IRenderFactory
 import org.apache.logging.log4j.LogManager
 
-class KoboldEntityRenderer(manager: EntityRendererManager): LivingRenderer<KoboldEntity, KoboldEntityModel>(manager,
+class KoboldEntityRenderer(manager: EntityRendererManager) :
+    LivingRenderer<KoboldEntity, KoboldEntityModel>(manager,
     KoboldEntityModel(), 0f) {
     companion object {
         private val LOGGER = LogManager.getLogger()
     }
 
     override fun getEntityTexture(entity: KoboldEntity): ResourceLocation? {
-        return ResourceLocation(MOD_ID, "textures/entity/kobold.png")
+        if (entity.isDisguised)
+            return ResourceLocation("minecraft", "textures/entity/chest/normal.png")
+        else
+            return ResourceLocation(MOD_ID, "textures/entity/kobold.png")
+    }
+
+    override fun doRender(
+      entity: KoboldEntity,
+      x: Double,
+      y: Double,
+      z: Double,
+      entityYaw: Float,
+      partialTicks: Float
+    ) {
+        this.bindEntityTexture(entity)
+        super.doRender(entity, x, y, z, entityYaw, partialTicks)
     }
 
     class KoboldEntityRendererFactory : IRenderFactory<KoboldEntity> {

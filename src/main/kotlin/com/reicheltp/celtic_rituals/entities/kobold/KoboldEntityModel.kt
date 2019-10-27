@@ -3,8 +3,9 @@ package com.reicheltp.celtic_rituals.entities.kobold
 import net.minecraft.client.renderer.entity.model.EntityModel
 import net.minecraft.client.renderer.entity.model.RendererModel
 import net.minecraft.client.renderer.model.ModelBox
+import net.minecraft.client.renderer.tileentity.model.ChestModel
 
-class KoboldEntityModel : EntityModel<KoboldEntity>(){
+class KoboldEntityModel : EntityModel<KoboldEntity>() {
     private var MainBody: RendererModel
     private var Head: RendererModel
     private var UpperHead: RendererModel
@@ -465,8 +466,11 @@ class KoboldEntityModel : EntityModel<KoboldEntity>(){
       netHeadYaw: Float,
       headPitch: Float,
       scale: Float
-    ){
-        MainBody.render(scale)
+    ) {
+        if (entityIn.isDisguised)
+            ChestModel().renderAll()
+        else
+            MainBody.render(scale)
     }
 
     fun setRotationAngle(modelRenderer: RendererModel, x: Float, y: Float, z: Float) {
