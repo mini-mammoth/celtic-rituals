@@ -18,9 +18,6 @@ class KoboldEntity(world: World) :
     MonsterEntity(ModEntities.KOBOLD_ENTITY as EntityType<out MonsterEntity>, world), ITickable {
 
     var isDisguised = false
-    var chuckleDelayInSeconds = 10
-
-    private var chuckleTicks = 0
 
     override fun registerGoals() {
         applyEntityAI()
@@ -29,7 +26,7 @@ class KoboldEntity(world: World) :
     protected fun applyEntityAI() {
         this.goalSelector.addGoal(2, MeleeAttackGoal(this, 1.1, false))
 
-        this.goalSelector.addGoal(7, WaterAvoidingRandomWalkingGoal(this, 1.2))
+        //this.goalSelector.addGoal(7, WaterAvoidingRandomWalkingGoal(this, 1.2))
 
         this.targetSelector.addGoal(
             2,
@@ -45,27 +42,12 @@ class KoboldEntity(world: World) :
         this.getAttribute(SharedMonsterAttributes.ARMOR).baseValue = 2.0
     }
 
-    override fun tick() {
-        if (isDisguised) {
-            chuckleTicks++
-            if (chuckleTicks >= chuckleDelayInSeconds * 20) {
-                Minecraft.getInstance().world.playSound(
-                    position,
-                    ModSoundEvents.KOBOLD_CHUCKLE,
-                    SoundCategory.HOSTILE,
-                    1f,
-                    1f,
-                    false)
-                chuckleTicks = 0
-            }
-        } else
-            chuckleTicks = 0
-
-        super.tick()
-    }
-
     override fun onCollideWithPlayer(entityIn: PlayerEntity) {
-        isDisguised = true
+        if (!isDisguised)
+        {
+            isDisguised = true
+        }
+
         super.onCollideWithPlayer(entityIn)
     }
 

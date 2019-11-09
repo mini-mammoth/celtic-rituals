@@ -1,11 +1,21 @@
 package com.reicheltp.celtic_rituals.entities.kobold
 
+import com.reicheltp.celtic_rituals.init.ModSoundEvents
+import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.model.EntityModel
 import net.minecraft.client.renderer.entity.model.RendererModel
 import net.minecraft.client.renderer.model.ModelBox
 import net.minecraft.client.renderer.tileentity.model.ChestModel
+import net.minecraft.util.SoundCategory
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
+import org.lwjgl.opengl.GL11
 
+@OnlyIn(Dist.CLIENT)
 class KoboldEntityModel : EntityModel<KoboldEntity>() {
+    private val chuckleDurationInTicks = 20
+    private var _isChuckling = false
+
     private var MainBody: RendererModel
     private var Head: RendererModel
     private var UpperHead: RendererModel
@@ -36,9 +46,15 @@ class KoboldEntityModel : EntityModel<KoboldEntity>() {
     private var UpperTail: RendererModel
     private var LowerTail: RendererModel
 
+    private var DisguiseChest: ChestModel
+
     init {
+        System.out.println("Model constructed!")
+
         textureWidth = 32
         textureHeight = 32
+
+        DisguiseChest = ChestModel()
 
         MainBody = RendererModel(this)
         MainBody.setRotationPoint(0.0f, 24.0f, 0.0f)
@@ -459,7 +475,7 @@ class KoboldEntityModel : EntityModel<KoboldEntity>() {
     }
 
     override fun render(
-      entityIn: KoboldEntity,
+      entity: KoboldEntity,
       limbSwing: Float,
       limbSwingAmount: Float,
       ageInTicks: Float,
@@ -467,10 +483,73 @@ class KoboldEntityModel : EntityModel<KoboldEntity>() {
       headPitch: Float,
       scale: Float
     ) {
-        if (entityIn.isDisguised)
-            ChestModel().renderAll()
+        if (entity.isDisguised){
+            val ticksmod = ageInTicks % 100
+
+            var rotation = 0f;
+            if (ticksmod <= chuckleDurationInTicks){
+                if (!_isChuckling)
+                {
+                    _isChuckling = true
+                    entity.world.playSound(Minecraft.getInstance().player, entity.position, ModSoundEvents.KOBOLD_CHUCKLE, SoundCategory.HOSTILE, 1f, 1f)
+                }
+
+                val progress : Float
+                if (ticksmod < chuckleDurationInTicks / 2)
+                {
+                    progress = ticksmod / (chuckleDurationInTicks / 2)
+                }
+                else
+                {
+                    progress = (ticksmod - chuckleDurationInTicks / 2) /  (chuckleDurationInTicks / 2)
+                }
+
+                rotation = calculateChuckleRotation(progress, 10f)
+            }
+            else
+            {
+                _isChuckling = false
+            }
+
+            GL11.glPushMatrix()
+            GL11.glTranslatef(0f,.5f,0f)
+
+            GL11.glTranslatef(0.5f,1f,0.5f)
+            GL11.glRotatef(rotation, 0f, 0f, 1f)
+            GL11.glTranslatef(-0.5f,-1f,-0.5f)
+            DisguiseChest.renderAll()
+            GL11.glPopMatrix()
+
+        }
         else
             MainBody.render(scale)
+    }
+
+    fun calculateChuckleRotation(progress: Float, angle: Float) : Float
+    {
+        var rotation: Float
+
+        if (progress < 0.25f && progress > 0f){
+            rotation = easeInOut(4 * progress) * angle
+        }
+        else if (progress < 0.75f)
+        {
+            rotation = (1 - 2 * easeInOut(2 * (progress - 0.25f))) * angle
+        }
+        else if (progress < 1f)
+        {
+            rotation = -1 * (1 - easeInOut(4 * (progress - 0.75f))) * angle
+        }
+        else
+            rotation = 0f;
+
+        return rotation;
+    }
+
+    fun easeInOut(progress: Float): Float
+    {
+        val squared = progress * progress
+        return squared / (2.0f * (squared - progress) + 1.0f)
     }
 
     fun setRotationAngle(modelRenderer: RendererModel, x: Float, y: Float, z: Float) {
