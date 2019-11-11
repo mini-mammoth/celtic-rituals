@@ -483,71 +483,63 @@ class KoboldEntityModel : EntityModel<KoboldEntity>() {
       headPitch: Float,
       scale: Float
     ) {
-        if (entity.isDisguised){
+        if (entity.isDisguised) {
             val ticksmod = ageInTicks % 100
 
-            var rotation = 0f;
-            if (ticksmod <= chuckleDurationInTicks){
-                if (!_isChuckling)
-                {
+            var rotation = 0f
+            if (ticksmod <= chuckleDurationInTicks) {
+                if (!_isChuckling) {
                     _isChuckling = true
-                    entity.world.playSound(Minecraft.getInstance().player, entity.position, ModSoundEvents.KOBOLD_CHUCKLE, SoundCategory.HOSTILE, 1f, 1f)
+                    entity.world.playSound(
+                        Minecraft.getInstance().player,
+                        entity.position,
+                        ModSoundEvents.KOBOLD_CHUCKLE,
+                        SoundCategory.HOSTILE,
+                        1f,
+                        1f)
                 }
 
-                val progress : Float
-                if (ticksmod < chuckleDurationInTicks / 2)
-                {
+                val progress: Float
+                if (ticksmod < chuckleDurationInTicks / 2) {
                     progress = ticksmod / (chuckleDurationInTicks / 2)
-                }
-                else
-                {
-                    progress = (ticksmod - chuckleDurationInTicks / 2) /  (chuckleDurationInTicks / 2)
+                } else {
+                    progress = (ticksmod - chuckleDurationInTicks / 2) /
+                                (chuckleDurationInTicks / 2)
                 }
 
                 rotation = calculateChuckleRotation(progress, 10f)
-            }
-            else
-            {
+            } else {
                 _isChuckling = false
             }
 
             GL11.glPushMatrix()
-            GL11.glTranslatef(0f,.5f,0f)
+            GL11.glTranslatef(0f, .5f, 0f)
 
-            GL11.glTranslatef(0.5f,1f,0.5f)
+            GL11.glTranslatef(0.5f, 1f, 0.5f)
             GL11.glRotatef(rotation, 0f, 0f, 1f)
-            GL11.glTranslatef(-0.5f,-1f,-0.5f)
+            GL11.glTranslatef(-0.5f, -1f, -0.5f)
             DisguiseChest.renderAll()
             GL11.glPopMatrix()
-
-        }
-        else
+        } else
             MainBody.render(scale)
     }
 
-    fun calculateChuckleRotation(progress: Float, angle: Float) : Float
-    {
+    fun calculateChuckleRotation(progress: Float, angle: Float): Float {
         var rotation: Float
 
-        if (progress < 0.25f && progress > 0f){
+        if (progress < 0.25f && progress > 0f) {
             rotation = easeInOut(4 * progress) * angle
-        }
-        else if (progress < 0.75f)
-        {
+        } else if (progress < 0.75f) {
             rotation = (1 - 2 * easeInOut(2 * (progress - 0.25f))) * angle
-        }
-        else if (progress < 1f)
-        {
+        } else if (progress < 1f) {
             rotation = -1 * (1 - easeInOut(4 * (progress - 0.75f))) * angle
-        }
-        else
-            rotation = 0f;
+        } else
+            rotation = 0f
 
-        return rotation;
+        return rotation
     }
 
-    fun easeInOut(progress: Float): Float
-    {
+    fun easeInOut(progress: Float): Float {
         val squared = progress * progress
         return squared / (2.0f * (squared - progress) + 1.0f)
     }

@@ -1,17 +1,12 @@
 package com.reicheltp.celtic_rituals.entities.kobold
 
 import com.reicheltp.celtic_rituals.init.ModEntities
-import com.reicheltp.celtic_rituals.init.ModSoundEvents
-import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.ITickable
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SharedMonsterAttributes
-import net.minecraft.entity.ai.goal.MeleeAttackGoal
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal
 import net.minecraft.entity.monster.MonsterEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
 
 class KoboldEntity(world: World) :
@@ -24,9 +19,9 @@ class KoboldEntity(world: World) :
     }
 
     protected fun applyEntityAI() {
-        this.goalSelector.addGoal(2, MeleeAttackGoal(this, 1.1, false))
+        this.goalSelector.addGoal(2, FollowPlayerGoal(this, world, 16.0, 5.0, 1.0))
 
-        //this.goalSelector.addGoal(7, WaterAvoidingRandomWalkingGoal(this, 1.2))
+        // this.goalSelector.addGoal(7, WaterAvoidingRandomWalkingGoal(this, 1.2))
 
         this.targetSelector.addGoal(
             2,
@@ -43,8 +38,7 @@ class KoboldEntity(world: World) :
     }
 
     override fun onCollideWithPlayer(entityIn: PlayerEntity) {
-        if (!isDisguised)
-        {
+        if (!isDisguised) {
             isDisguised = true
         }
 
