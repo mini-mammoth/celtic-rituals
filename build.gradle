@@ -16,7 +16,7 @@ plugins {
     id "org.jlleitschuh.gradle.ktlint" version "${ktlint_version}"
     id "org.jlleitschuh.gradle.ktlint-idea" version "${ktlint_version}"
 
-    id 'com.palantir.git-version' version '0.12.2'
+    id 'com.palantir.git-version' version '1.0.0'
 }
 
 
